@@ -1,11 +1,11 @@
 @reference "../../index.css";
 
 .page {
-  @apply flex h-screen flex-col overflow-hidden;
+  @apply flex flex-col;
 }
 
 .mapWrapper {
-  @apply relative flex-1;
+  @apply relative h-[calc(100vh-60px)];
 }
 
 .filterOverlay {

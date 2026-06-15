@@ -10,6 +10,9 @@ export interface PropertyCardProps {
   beds: number
   baths: number
   area: number
+  lat?: number
+  lng?: number
+  neighborhoodId?: string
   isFavorite?: boolean
   onFavoriteToggle?: () => void
   onClick?: () => void
