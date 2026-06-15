@@ -1,15 +1,15 @@
 @reference "../../index.css";
 
 .bar {
-  @apply flex items-center gap-2 rounded-2xl bg-[#1C1C1E]/95 px-3 py-2.5 shadow-xl backdrop-blur-md;
+  @apply flex items-center gap-2 rounded-2xl bg-[#0D1B4B]/95 px-3 py-2.5 shadow-xl backdrop-blur-md border border-white/10;
 }
 
 .chip {
-  @apply flex items-center gap-1.5 rounded-xl bg-[#F5E6C8] px-4 py-2 text-sm font-medium text-[#1C1C1E] transition-opacity hover:opacity-80;
+  @apply flex items-center gap-1.5 rounded-xl bg-[#60A5FA]/20 px-4 py-2 text-sm font-medium text-[#93C5FD] transition-colors hover:bg-[#60A5FA]/30 hover:text-white border border-[#60A5FA]/30;
 }
 
 .chipActive {
-  @apply flex items-center gap-1.5 rounded-xl bg-[#F5A623] px-4 py-2 text-sm font-semibold text-[#1C1C1E] shadow-sm;
+  @apply flex items-center gap-1.5 rounded-xl bg-[#F5A623] px-4 py-2 text-sm font-semibold text-[#0D1B4B] shadow-sm;
 }
 
 .chipCount {
@@ -42,4 +42,16 @@
 
 .count span {
   @apply text-[10px] text-white/60;
+}
+
+.searchRow {
+  @apply flex flex-1 items-center gap-2 min-w-[280px];
+}
+
+.searchInputIcon {
+  @apply h-4 w-4 shrink-0 text-white/50;
+}
+
+.searchInput {
+  @apply flex-1 bg-transparent text-sm text-white placeholder-white/40 outline-none;
 }
