@@ -1,4 +1,4 @@
-import { Bell, Heart, Home, House, Info } from 'lucide-react'
+import { Bell, Heart, Home, Info } from 'lucide-react'
 import styles from '@/styles/layout/Header.module.css'
 
 const NAV_LINKS = [
@@ -13,12 +13,7 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.container}>
         <a href="#inicio" className={styles.logo}>
-          <div className={styles.logoIcon}>
-            <House className={styles.logoHouseIcon} />
-          </div>
-          <span>
-            imov<span className={styles.logoCG}>CG</span>
-          </span>
+          <img src="/logo.svg" alt="imovCG" className={styles.logoImg} />
         </a>
         <nav className={styles.nav}>
           {NAV_LINKS.map(({ href, label, icon: Icon }) => (
