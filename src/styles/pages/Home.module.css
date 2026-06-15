@@ -1,0 +1,18 @@
+@reference "../../index.css";
+
+.page {
+  @apply flex h-screen flex-col overflow-hidden;
+}
+
+.mapWrapper {
+  @apply relative flex-1;
+}
+
+.filterOverlay {
+  @apply absolute left-0 right-0 top-0 z-[1000] flex justify-center px-4 pt-4;
+}
+
+.cardStrip {
+  @apply absolute bottom-0 left-0 right-0 z-[1000] px-4 pb-4 pt-10;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 60%, transparent);
+}

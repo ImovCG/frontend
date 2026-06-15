@@ -1,0 +1,33 @@
+@reference "../../index.css";
+
+.sectionBg {
+  @apply flex min-h-[80vh] items-center bg-gradient-to-br from-background to-muted;
+}
+
+.content {
+  @apply w-full text-center;
+}
+
+.title {
+  @apply text-5xl font-bold tracking-tight text-foreground sm:text-6xl;
+}
+
+.subtitle {
+  @apply mx-auto mt-6 max-w-2xl text-lg text-muted-foreground;
+}
+
+.searchWrapper {
+  @apply mx-auto mt-10 flex max-w-xl gap-3;
+}
+
+.inputWrapper {
+  @apply relative flex-1;
+}
+
+.searchIcon {
+  @apply absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground;
+}
+
+.input {
+  @apply w-full rounded-md border bg-background px-9 py-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/50;
+}

@@ -1,0 +1,13 @@
+@reference "../../index.css";
+
+.map {
+  @apply absolute inset-0 flex items-center justify-center bg-[#1a2744];
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.label {
+  @apply text-sm text-white/20 select-none;
+}

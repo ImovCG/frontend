@@ -1,0 +1,33 @@
+@reference "../../index.css";
+
+.sectionBg {
+  @apply bg-muted/20;
+}
+
+.grid {
+  @apply grid grid-cols-1 gap-8 md:grid-cols-3;
+}
+
+.step {
+  @apply flex flex-col items-center text-center;
+}
+
+.iconWrapper {
+  @apply relative;
+}
+
+.icon {
+  @apply flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary;
+}
+
+.stepNumber {
+  @apply absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground;
+}
+
+.stepTitle {
+  @apply mt-5 font-semibold text-foreground;
+}
+
+.stepDescription {
+  @apply mt-2 text-sm text-muted-foreground;
+}
