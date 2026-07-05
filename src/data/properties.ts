@@ -1,0 +1,58 @@
+import type { PropertyCardProps } from '@/components/home/PropertyCard'
+
+export const PROPERTIES: PropertyCardProps[] = [
+  {
+    id: 'prop-1',
+    image: 'https://placehold.co/400x250/e2e8f0/64748b?text=Im%C3%B3vel+1',
+    title: 'Casa com piscina no Universitário',
+    price: 'R$ 750.000',
+    location: 'Universitário, Campina Grande - PB',
+    beds: 3, baths: 2, area: 180, isFavorite: true,
+    lat: -7.2180, lng: -35.8930, neighborhoodId: 'universitario',
+  },
+  {
+    id: 'prop-2',
+    image: 'https://placehold.co/400x250/e2e8f0/64748b?text=Im%C3%B3vel+2',
+    title: 'Apartamento no Universitário',
+    price: 'R$ 420.000',
+    location: 'Universitário, Campina Grande - PB',
+    beds: 2, baths: 1, area: 72, isFavorite: false,
+    lat: -7.2200, lng: -35.8960, neighborhoodId: 'universitario',
+  },
+  {
+    id: 'prop-3',
+    image: 'https://placehold.co/400x250/e2e8f0/64748b?text=Im%C3%B3vel+3',
+    title: 'Sobrado no Bodocongó',
+    price: 'R$ 590.000',
+    location: 'Bodocongó, Campina Grande - PB',
+    beds: 4, baths: 3, area: 240, isFavorite: true,
+    lat: -7.2430, lng: -35.9100, neighborhoodId: 'bodocongo',
+  },
+  {
+    id: 'prop-4',
+    image: 'https://placehold.co/400x250/e2e8f0/64748b?text=Im%C3%B3vel+4',
+    title: 'Casa em Três Irmãos',
+    price: 'R$ 185.000',
+    location: 'Três Irmãos, Campina Grande - PB',
+    beds: 1, baths: 1, area: 32, isFavorite: false,
+    lat: -7.2150, lng: -35.8720, neighborhoodId: 'tres-irmaos',
+  },
+  {
+    id: 'prop-5',
+    image: 'https://placehold.co/400x250/e2e8f0/64748b?text=Im%C3%B3vel+5',
+    title: 'Cobertura no Centenário',
+    price: 'R$ 1.200.000',
+    location: 'Centenário, Campina Grande - PB',
+    beds: 4, baths: 4, area: 320, isFavorite: false,
+    lat: -7.2130, lng: -35.8680, neighborhoodId: 'centenario',
+  },
+  {
+    id: 'prop-6',
+    image: 'https://placehold.co/400x250/e2e8f0/64748b?text=Im%C3%B3vel+6',
+    title: 'Flat no Centenário',
+    price: 'R$ 310.000',
+    location: 'Centenário, Campina Grande - PB',
+    beds: 2, baths: 1, area: 58, isFavorite: true,
+    lat: -7.2110, lng: -35.8700, neighborhoodId: 'centenario',
+  },
+]
