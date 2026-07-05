@@ -25,6 +25,18 @@
   @apply absolute bottom-2 left-2 rounded-md bg-[#0D1B4B]/90 px-2 py-0.5 text-xs font-bold text-white backdrop-blur-sm;
 }
 
+.favoriteBtn {
+  @apply absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm transition-colors hover:bg-black/70;
+}
+
+.heartIcon {
+  @apply h-3.5 w-3.5 text-white/70;
+}
+
+.heartActive {
+  @apply fill-red-400 text-red-400;
+}
+
 .body {
   @apply p-2.5;
 }

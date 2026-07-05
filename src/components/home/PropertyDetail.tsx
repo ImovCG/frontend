@@ -1,5 +1,6 @@
 import { Bath, Bed, Heart, MapPin, Maximize2, Phone, X } from 'lucide-react'
 import { type PropertyCardProps } from '@/components/home/PropertyCard'
+import { useFavorites } from '@/context/FavoritesContext'
 import { cn } from '@/lib/utils'
 import styles from '@/styles/home/PropertyDetail.module.css'
 
@@ -9,6 +10,9 @@ interface PropertyDetailProps {
 }
 
 export default function PropertyDetail({ property, onClose }: PropertyDetailProps) {
+  const { isFav, toggle } = useFavorites()
+  const favorite = isFav(property.id)
+
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.panel} onClick={(e) => e.stopPropagation()}>
@@ -55,9 +59,10 @@ export default function PropertyDetail({ property, onClose }: PropertyDetailProp
               Entrar em contato
             </button>
             <button
-              className={cn(styles.btnFavorite, property.isFavorite && styles.btnFavoriteActive)}
+              className={cn(styles.btnFavorite, favorite && styles.btnFavoriteActive)}
+              onClick={() => toggle(property.id)}
             >
-              <Heart className={cn(styles.btnIcon, property.isFavorite && styles.heartActive)} />
+              <Heart className={cn(styles.btnIcon, favorite && styles.heartActive)} />
             </button>
           </div>
         </div>

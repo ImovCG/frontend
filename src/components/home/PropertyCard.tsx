@@ -1,8 +1,10 @@
 import { Bath, Bed, Heart, Maximize2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useFavorites } from '@/context/FavoritesContext'
 import styles from '@/styles/home/PropertyCard.module.css'
 
 export interface PropertyCardProps {
+  id: string
   image: string
   title: string
   price: string
@@ -14,11 +16,11 @@ export interface PropertyCardProps {
   lng?: number
   neighborhoodId?: string
   isFavorite?: boolean
-  onFavoriteToggle?: () => void
   onClick?: () => void
 }
 
 export default function PropertyCard({
+  id,
   image,
   title,
   price,
@@ -26,22 +28,20 @@ export default function PropertyCard({
   beds,
   baths,
   area,
-  isFavorite = false,
-  onFavoriteToggle,
   onClick,
 }: PropertyCardProps) {
+  const { isFav, toggle } = useFavorites()
+  const favorite = isFav(id)
+
   return (
     <div className={styles.card} onClick={onClick}>
       <div className={styles.imageWrapper}>
         <img src={image} alt={title} className={styles.image} />
         <button
           className={styles.favoriteBtn}
-          onClick={(e) => {
-            e.stopPropagation()
-            onFavoriteToggle?.()
-          }}
+          onClick={(e) => { e.stopPropagation(); toggle(id) }}
         >
-          <Heart className={cn(styles.heartIcon, isFavorite && styles.heartActive)} />
+          <Heart className={cn(styles.heartIcon, favorite && styles.heartActive)} />
         </button>
       </div>
       <div className={styles.body}>
@@ -49,18 +49,9 @@ export default function PropertyCard({
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.location}>{location}</p>
         <div className={styles.specs}>
-          <span className={styles.specItem}>
-            <Bed className={styles.specIcon} />
-            {beds}
-          </span>
-          <span className={styles.specItem}>
-            <Bath className={styles.specIcon} />
-            {baths}
-          </span>
-          <span className={styles.specItem}>
-            <Maximize2 className={styles.specIcon} />
-            {area}m²
-          </span>
+          <span className={styles.specItem}><Bed className={styles.specIcon} />{beds}</span>
+          <span className={styles.specItem}><Bath className={styles.specIcon} />{baths}</span>
+          <span className={styles.specItem}><Maximize2 className={styles.specIcon} />{area}m²</span>
         </div>
       </div>
     </div>

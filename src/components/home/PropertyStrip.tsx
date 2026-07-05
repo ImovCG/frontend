@@ -1,5 +1,7 @@
-import { Bath, Bed, Maximize2 } from 'lucide-react'
+import { Bath, Bed, Heart, Maximize2 } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import { type PropertyCardProps } from '@/components/home/PropertyCard'
+import { useFavorites } from '@/context/FavoritesContext'
 import styles from '@/styles/home/PropertyStrip.module.css'
 
 interface PropertyStripProps {
@@ -8,13 +10,21 @@ interface PropertyStripProps {
 }
 
 export default function PropertyStrip({ properties, onCardClick }: PropertyStripProps) {
+  const { isFav, toggle } = useFavorites()
+
   return (
     <div className={styles.strip}>
       {properties.map((prop, i) => (
-        <div key={i} className={styles.card} onClick={() => onCardClick?.(i)}>
+        <div key={prop.id} className={styles.card} onClick={() => onCardClick?.(i)}>
           <div className={styles.imageWrapper}>
             <img src={prop.image} alt={prop.title} className={styles.image} />
             <span className={styles.price}>{prop.price}</span>
+            <button
+              className={styles.favoriteBtn}
+              onClick={(e) => { e.stopPropagation(); toggle(prop.id) }}
+            >
+              <Heart className={cn(styles.heartIcon, isFav(prop.id) && styles.heartActive)} />
+            </button>
           </div>
           <div className={styles.body}>
             <p className={styles.title}>{prop.title}</p>
