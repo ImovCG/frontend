@@ -1,83 +1,138 @@
-import Header from '@/components/layout/Header'
+import { useState } from 'react'
 import SearchArea, { type FilterChip } from '@/components/home/SearchArea'
-import MapView from '@/components/home/MapView'
+import MapView, { type MapMarker } from '@/components/home/MapView'
 import PropertyStrip from '@/components/home/PropertyStrip'
+import PropertyDetail from '@/components/home/PropertyDetail'
+import FilterPanel, { DEFAULT_FILTERS, type Filters } from '@/components/home/FilterPanel'
 import { type PropertyCardProps } from '@/components/home/PropertyCard'
+import { PROPERTIES } from '@/data/properties'
+import { CAMPINA_GRANDE_NEIGHBORHOODS } from '@/data/neighborhoods'
 import styles from '@/styles/pages/Home.module.css'
 
-const SEARCH_CHIPS: FilterChip[] = [
-  { id: 'universitario', label: 'Universitário', active: true },
+const NEIGHBORHOOD_CHIPS: FilterChip[] = [
+  { id: 'universitario', label: 'Universitário' },
   { id: 'bodocongo', label: 'Bodocongó' },
   { id: 'tres-irmaos', label: 'Três Irmãos' },
   { id: 'centenario', label: 'Centenário' },
 ]
 
-const PROPERTIES: PropertyCardProps[] = [
-  {
-    image: 'https://placehold.co/400x250/e2e8f0/64748b?text=Im%C3%B3vel+1',
-    title: 'Casa com piscina no Jardim dos Estados',
-    price: 'R$ 750.000',
-    location: 'Jardim dos Estados, Campina Grande - PB',
-    beds: 3,
-    baths: 2,
-    area: 180,
-    isFavorite: true,
-  },
-  {
-    image: 'https://placehold.co/400x250/e2e8f0/64748b?text=Im%C3%B3vel+2',
-    title: 'Apartamento moderno no Chácara Cachoeira',
-    price: 'R$ 420.000',
-    location: 'Chácara Cachoeira, Campina Grande - PB',
-    beds: 2,
-    baths: 1,
-    area: 72,
-    isFavorite: false,
-  },
-  {
-    image: 'https://placehold.co/400x250/e2e8f0/64748b?text=Im%C3%B3vel+3',
-    title: 'Sobrado amplo no Bairro Autonomista',
-    price: 'R$ 590.000',
-    location: 'Autonomista, Campina Grande - PB',
-    beds: 4,
-    baths: 3,
-    area: 240,
-    isFavorite: true,
-  },
-  {
-    image: 'https://placehold.co/400x250/e2e8f0/64748b?text=Im%C3%B3vel+4',
-    title: 'Kitnet mobiliada no Centro',
-    price: 'R$ 185.000',
-    location: 'Centro, Campina Grande - PB',
-    beds: 1,
-    baths: 1,
-    area: 32,
-    isFavorite: false,
-  },
-  {
-    image: 'https://placehold.co/400x250/e2e8f0/64748b?text=Im%C3%B3vel+5',
-    title: 'Cobertura duplex na Prata',
-    price: 'R$ 1.200.000',
-    location: 'Prata, Campina Grande - PB',
-    beds: 4,
-    baths: 4,
-    area: 320,
-    isFavorite: false,
-  },
-]
+function matchesType(title: string, type: string): boolean {
+  if (!type) return true
+  return title.toLowerCase().includes(type.toLowerCase())
+}
 
 export default function Home() {
+  const [activeChip, setActiveChip] = useState('universitario')
+  const [selectedProperty, setSelectedProperty] = useState<PropertyCardProps | null>(null)
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchChip, setSearchChip] = useState<string | null>(null)
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
+  const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
+
+  // Search chip replaces the currently active neighborhood chip
+  const chips: FilterChip[] = NEIGHBORHOOD_CHIPS.map((c) => {
+    if (searchChip && c.id === activeChip) {
+      return { id: '__search__', label: searchChip, active: true, removable: true }
+    }
+    return { ...c, active: !searchChip && c.id === activeChip }
+  })
+
+  const suggestions =
+    searchQuery.length >= 2
+      ? CAMPINA_GRANDE_NEIGHBORHOODS.filter((n) =>
+          n.toLowerCase().includes(searchQuery.toLowerCase())
+        ).slice(0, 6)
+      : []
+
+  const filtered = PROPERTIES.filter((p) => {
+    if (searchChip) {
+      const q = searchChip.toLowerCase()
+      if (!p.title.toLowerCase().includes(q) && !p.location.toLowerCase().includes(q)) return false
+    } else {
+      if (p.neighborhoodId !== activeChip) return false
+    }
+    if (filters.minBeds && p.beds < filters.minBeds) return false
+    if (filters.minBaths && p.baths < filters.minBaths) return false
+    if (filters.maxPrice) {
+      const price = parseInt(p.price.replace(/\D/g, ''), 10)
+      if (price > filters.maxPrice) return false
+    }
+    if (!matchesType(p.title, filters.type)) return false
+    return true
+  })
+
+  const markers: MapMarker[] = filtered
+    .filter((p) => p.lat !== undefined && p.lng !== undefined)
+    .map((p, i) => ({ lat: p.lat!, lng: p.lng!, price: p.price, index: i }))
+
+  function handleSelect(index: number) {
+    setSelectedProperty(filtered[index] ?? null)
+  }
+
+  function handleChipClick(id: string) {
+    if (id === '__search__') return
+    setActiveChip(id)
+    setSearchChip(null)
+    setSearchQuery('')
+    setIsSearchOpen(false)
+  }
+
+  function handleSearchSubmit(query: string) {
+    setSearchChip(query)
+    setSearchQuery('')
+    setIsSearchOpen(false)
+  }
+
+  function handleSuggestionSelect(neighborhood: string) {
+    setSearchChip(neighborhood)
+    setSearchQuery('')
+    setIsSearchOpen(false)
+  }
+
+  function handleRemoveSearchChip() {
+    setSearchChip(null)
+  }
+
   return (
-    <div className={styles.page}>
-      <Header />
-      <div className={styles.mapWrapper}>
-        <MapView />
-        <div className={styles.filterOverlay}>
-          <SearchArea chips={SEARCH_CHIPS} count={PROPERTIES.length} />
-        </div>
-        <div className={styles.cardStrip}>
-          <PropertyStrip properties={PROPERTIES} />
-        </div>
+    <div className={styles.mapWrapper}>
+      <MapView markers={markers} onMarkerClick={handleSelect} />
+      <div className={styles.filterOverlay}>
+        <SearchArea
+          chips={chips}
+          count={filtered.length}
+          searchOpen={isSearchOpen}
+          searchValue={searchQuery}
+          suggestions={suggestions}
+          onSearchClick={() => setIsSearchOpen(true)}
+          onSearchChange={setSearchQuery}
+          onSearchClose={() => { setIsSearchOpen(false); setSearchQuery('') }}
+          onSearchSubmit={handleSearchSubmit}
+          onSuggestionSelect={handleSuggestionSelect}
+          onFilterClick={() => setIsFilterOpen(true)}
+          onChipClick={handleChipClick}
+          onChipRemove={handleRemoveSearchChip}
+        />
       </div>
+      <div className={styles.cardStrip}>
+        <PropertyStrip properties={filtered} onCardClick={handleSelect} />
+      </div>
+
+      {selectedProperty && (
+        <PropertyDetail
+          property={selectedProperty}
+          onClose={() => setSelectedProperty(null)}
+        />
+      )}
+
+      {isFilterOpen && (
+        <FilterPanel
+          filters={filters}
+          onChange={setFilters}
+          onClose={() => setIsFilterOpen(false)}
+          onClear={() => setFilters(DEFAULT_FILTERS)}
+        />
+      )}
     </div>
   )
 }
