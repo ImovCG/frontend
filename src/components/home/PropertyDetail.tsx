@@ -26,7 +26,10 @@ export default function PropertyDetail({ property, onClose }: PropertyDetailProp
         </div>
 
         <div className={styles.body}>
-          <h2 className={styles.title}>{property.title}</h2>
+          <div className={styles.headerRow}>
+            <h2 className={styles.title}>{property.title}</h2>
+            <span className={styles.statusBadge}>{property.status ?? 'Disponível'}</span>
+          </div>
 
           <div className={styles.location}>
             <MapPin className={styles.locationIcon} />
@@ -48,11 +51,14 @@ export default function PropertyDetail({ property, onClose }: PropertyDetailProp
             </div>
           </div>
 
-          <p className={styles.description}>
-            Imóvel bem localizado em {property.location.split(',')[0]}, com excelente acabamento,
-            áreas de lazer completas e fácil acesso às principais vias da cidade.
-            Documentação regularizada e pronto para financiamento.
-          </p>
+          <div className={styles.descriptionSection}>
+            <h3 className={styles.sectionLabel}>Sobre o imóvel</h3>
+            <p className={styles.description}>
+              Imóvel bem localizado em {property.location.split(',')[0]}, com excelente acabamento,
+              áreas de lazer completas e fácil acesso às principais vias da cidade.
+              Documentação regularizada e pronto para financiamento.
+            </p>
+          </div>
 
           <div className={styles.actions}>
             <button className={styles.btnContact}>
