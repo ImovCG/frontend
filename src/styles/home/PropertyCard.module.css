@@ -51,3 +51,15 @@
 .specIcon {
   @apply h-3 w-3;
 }
+
+.actions {
+  @apply mt-3 flex items-center gap-2;
+}
+
+.viewBtn {
+  @apply flex-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:opacity-90;
+}
+
+.statusBtn {
+  @apply rounded-lg border px-3 py-1.5 text-xs font-medium text-muted-foreground;
+}

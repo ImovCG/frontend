@@ -1,6 +1,6 @@
 import { Bath, Bed, Heart, Maximize2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { type PropertyCardProps } from '@/components/home/PropertyCard'
+import { type PropertyCardProps, FALLBACK_SOURCE_URL } from '@/components/home/PropertyCard'
 import { useFavorites } from '@/context/FavoritesContext'
 import styles from '@/styles/home/PropertyStrip.module.css'
 
@@ -33,6 +33,18 @@ export default function PropertyStrip({ properties, onCardClick }: PropertyStrip
               <span className={styles.spec}><Bed className={styles.specIcon} />{prop.beds}</span>
               <span className={styles.spec}><Bath className={styles.specIcon} />{prop.baths}</span>
               <span className={styles.spec}><Maximize2 className={styles.specIcon} />{prop.area}m²</span>
+            </div>
+            <div className={styles.actions}>
+              <button
+                className={styles.viewBtn}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  window.open(prop.sourceUrl || FALLBACK_SOURCE_URL, '_blank', 'noopener,noreferrer')
+                }}
+              >
+                Ver anúncio
+              </button>
+              <span className={styles.statusBtn}>{prop.status ?? 'Disponível'}</span>
             </div>
           </div>
         </div>

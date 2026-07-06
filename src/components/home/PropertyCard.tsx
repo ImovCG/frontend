@@ -3,6 +3,9 @@ import { cn } from '@/lib/utils'
 import { useFavorites } from '@/context/FavoritesContext'
 import styles from '@/styles/home/PropertyCard.module.css'
 
+// TODO: remover fallback quando webscraping preencher sourceUrl real por imóvel
+export const FALLBACK_SOURCE_URL = 'https://www.olx.com.br'
+
 export interface PropertyCardProps {
   id: string
   image: string
@@ -16,6 +19,8 @@ export interface PropertyCardProps {
   lng?: number
   neighborhoodId?: string
   isFavorite?: boolean
+  status?: string
+  sourceUrl?: string
   onClick?: () => void
 }
 
@@ -28,6 +33,8 @@ export default function PropertyCard({
   beds,
   baths,
   area,
+  status = 'Disponível',
+  sourceUrl,
   onClick,
 }: PropertyCardProps) {
   const { isFav, toggle } = useFavorites()
@@ -52,6 +59,18 @@ export default function PropertyCard({
           <span className={styles.specItem}><Bed className={styles.specIcon} />{beds}</span>
           <span className={styles.specItem}><Bath className={styles.specIcon} />{baths}</span>
           <span className={styles.specItem}><Maximize2 className={styles.specIcon} />{area}m²</span>
+        </div>
+        <div className={styles.actions}>
+          <button
+            className={styles.viewBtn}
+            onClick={(e) => {
+              e.stopPropagation()
+              window.open(sourceUrl || FALLBACK_SOURCE_URL, '_blank', 'noopener,noreferrer')
+            }}
+          >
+            Ver anúncio
+          </button>
+          <span className={styles.statusBtn}>{status}</span>
         </div>
       </div>
     </div>

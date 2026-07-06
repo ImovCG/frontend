@@ -7,7 +7,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Casa com piscina no Universitário',
     price: 'R$ 750.000',
     location: 'Universitário, Campina Grande - PB',
-    beds: 3, baths: 2, area: 180, isFavorite: true,
+    beds: 3, baths: 2, area: 180, isFavorite: true, status: 'Disponível',
     lat: -7.2180, lng: -35.8930, neighborhoodId: 'universitario',
   },
   {
@@ -25,7 +25,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Sobrado no Bodocongó',
     price: 'R$ 590.000',
     location: 'Bodocongó, Campina Grande - PB',
-    beds: 4, baths: 3, area: 240, isFavorite: true,
+    beds: 4, baths: 3, area: 240, isFavorite: true, status: 'Em análise',
     lat: -7.2430, lng: -35.9100, neighborhoodId: 'bodocongo',
   },
   {
@@ -43,7 +43,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Cobertura no Centenário',
     price: 'R$ 1.200.000',
     location: 'Centenário, Campina Grande - PB',
-    beds: 4, baths: 4, area: 320, isFavorite: false,
+    beds: 4, baths: 4, area: 320, isFavorite: false, status: 'Vendido',
     lat: -7.2130, lng: -35.8680, neighborhoodId: 'centenario',
   },
   {

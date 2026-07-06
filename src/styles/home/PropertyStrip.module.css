@@ -60,3 +60,15 @@
 .specIcon {
   @apply h-3 w-3;
 }
+
+.actions {
+  @apply mt-2 flex items-center gap-1.5;
+}
+
+.viewBtn {
+  @apply flex-1 rounded-md bg-white px-2 py-1 text-[10px] font-semibold text-[#0D1B4B] transition-colors hover:opacity-90;
+}
+
+.statusBtn {
+  @apply rounded-md border border-white/20 px-2 py-1 text-[10px] font-medium text-white/60;
+}

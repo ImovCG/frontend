@@ -1,5 +1,5 @@
 import { Bath, Bed, Heart, MapPin, Maximize2, Phone, X } from 'lucide-react'
-import { type PropertyCardProps } from '@/components/home/PropertyCard'
+import { type PropertyCardProps, FALLBACK_SOURCE_URL } from '@/components/home/PropertyCard'
 import { useFavorites } from '@/context/FavoritesContext'
 import { cn } from '@/lib/utils'
 import styles from '@/styles/home/PropertyDetail.module.css'
@@ -57,6 +57,12 @@ export default function PropertyDetail({ property, onClose }: PropertyDetailProp
             <button className={styles.btnContact}>
               <Phone className={styles.btnIcon} />
               Entrar em contato
+            </button>
+            <button
+              className={styles.btnView}
+              onClick={() => window.open(property.sourceUrl || FALLBACK_SOURCE_URL, '_blank', 'noopener,noreferrer')}
+            >
+              Ver anúncio
             </button>
             <button
               className={cn(styles.btnFavorite, favorite && styles.btnFavoriteActive)}
