@@ -60,14 +60,6 @@
   @apply flex-1 bg-transparent text-sm text-white placeholder-white/40 outline-none;
 }
 
-.chipRemove {
-  @apply ml-1 flex items-center rounded-full opacity-70 hover:opacity-100;
-}
-
-.chipRemoveIcon {
-  @apply h-3 w-3;
-}
-
 .dropdown {
   @apply absolute left-0 right-0 top-full z-[1100] mt-2 overflow-hidden rounded-2xl border border-white/10 bg-[#0D1B4B]/95 shadow-xl backdrop-blur-md;
   list-style: none;

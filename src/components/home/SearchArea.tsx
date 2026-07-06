@@ -7,7 +7,6 @@ export interface FilterChip {
   label: string
   count?: number
   active?: boolean
-  removable?: boolean
 }
 
 interface SearchAreaProps {
@@ -23,7 +22,6 @@ interface SearchAreaProps {
   onSuggestionSelect?: (value: string) => void
   onFilterClick?: () => void
   onChipClick?: (id: string) => void
-  onChipRemove?: (id: string) => void
 }
 
 export default function SearchArea({
@@ -39,7 +37,6 @@ export default function SearchArea({
   onSuggestionSelect,
   onFilterClick,
   onChipClick,
-  onChipRemove,
 }: SearchAreaProps) {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -88,15 +85,6 @@ export default function SearchArea({
                 {chip.label}
                 {chip.count !== undefined && (
                   <span className={styles.chipCount}>{chip.count}</span>
-                )}
-                {chip.removable && (
-                  <span
-                    role="button"
-                    className={styles.chipRemove}
-                    onClick={(e) => { e.stopPropagation(); onChipRemove?.(chip.id) }}
-                  >
-                    <X className={styles.chipRemoveIcon} />
-                  </span>
                 )}
               </button>
             ))}

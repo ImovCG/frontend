@@ -5,16 +5,35 @@ import PropertyStrip from '@/components/home/PropertyStrip'
 import PropertyDetail from '@/components/home/PropertyDetail'
 import FilterPanel, { DEFAULT_FILTERS, type Filters } from '@/components/home/FilterPanel'
 import { type PropertyCardProps } from '@/components/home/PropertyCard'
+import { parsePriceToNumber } from '@/lib/property'
 import { PROPERTIES } from '@/data/properties'
 import { CAMPINA_GRANDE_NEIGHBORHOODS } from '@/data/neighborhoods'
 import styles from '@/styles/pages/Home.module.css'
 
-const NEIGHBORHOOD_CHIPS: FilterChip[] = [
+const INITIAL_NEIGHBORHOOD_CHIPS: FilterChip[] = [
   { id: 'universitario', label: 'Universitário' },
   { id: 'bodocongo', label: 'Bodocongó' },
   { id: 'tres-irmaos', label: 'Três Irmãos' },
   { id: 'centenario', label: 'Centenário' },
 ]
+
+const ACCENT_MAP: Record<string, string> = {
+  á: 'a', à: 'a', â: 'a', ã: 'a', ä: 'a',
+  é: 'e', è: 'e', ê: 'e', ë: 'e',
+  í: 'i', ì: 'i', î: 'i', ï: 'i',
+  ó: 'o', ò: 'o', ô: 'o', õ: 'o', ö: 'o',
+  ú: 'u', ù: 'u', û: 'u', ü: 'u',
+  ç: 'c', ñ: 'n',
+}
+
+function slugify(text: string): string {
+  const plain = text
+    .toLowerCase()
+    .split('')
+    .map((ch) => ACCENT_MAP[ch] ?? ch)
+    .join('')
+  return plain.trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+}
 
 function matchesType(title: string, type: string): boolean {
   if (!type) return true
@@ -22,21 +41,16 @@ function matchesType(title: string, type: string): boolean {
 }
 
 export default function Home() {
-  const [activeChip, setActiveChip] = useState('universitario')
+  const [chips, setChips] = useState<FilterChip[]>(INITIAL_NEIGHBORHOOD_CHIPS)
+  const [activeChip, setActiveChip] = useState(INITIAL_NEIGHBORHOOD_CHIPS[0].id)
   const [selectedProperty, setSelectedProperty] = useState<PropertyCardProps | null>(null)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
-  const [searchChip, setSearchChip] = useState<string | null>(null)
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
 
-  // Search chip replaces the currently active neighborhood chip
-  const chips: FilterChip[] = NEIGHBORHOOD_CHIPS.map((c) => {
-    if (searchChip && c.id === activeChip) {
-      return { id: '__search__', label: searchChip, active: true, removable: true }
-    }
-    return { ...c, active: !searchChip && c.id === activeChip }
-  })
+  const displayChips: FilterChip[] = chips.map((c) => ({ ...c, active: c.id === activeChip }))
+  const activeChipData = chips.find((c) => c.id === activeChip)
 
   const suggestions =
     searchQuery.length >= 2
@@ -46,17 +60,19 @@ export default function Home() {
       : []
 
   const filtered = PROPERTIES.filter((p) => {
-    if (searchChip) {
-      const q = searchChip.toLowerCase()
-      if (!p.title.toLowerCase().includes(q) && !p.location.toLowerCase().includes(q)) return false
-    } else {
-      if (p.neighborhoodId !== activeChip) return false
+    if (activeChipData) {
+      const q = activeChipData.label.toLowerCase()
+      const matchesNeighborhood =
+        p.neighborhoodId === activeChipData.id ||
+        p.title.toLowerCase().includes(q) ||
+        p.location.toLowerCase().includes(q)
+      if (!matchesNeighborhood) return false
     }
     if (filters.minBeds && p.beds < filters.minBeds) return false
     if (filters.minBaths && p.baths < filters.minBaths) return false
     if (filters.maxPrice) {
-      const price = parseInt(p.price.replace(/\D/g, ''), 10)
-      if (price > filters.maxPrice) return false
+      const price = parsePriceToNumber(p.price)
+      if (price !== null && price > filters.maxPrice) return false
     }
     if (!matchesType(p.title, filters.type)) return false
     return true
@@ -71,27 +87,34 @@ export default function Home() {
   }
 
   function handleChipClick(id: string) {
-    if (id === '__search__') return
     setActiveChip(id)
-    setSearchChip(null)
+    setSearchQuery('')
+    setIsSearchOpen(false)
+  }
+
+  // Neighborhood not in the visible slots takes over whichever slot is currently active,
+  // so it sticks around like a rotating queue as the user moves between chips.
+  function selectSearchedNeighborhood(name: string) {
+    const id = slugify(name)
+    const existing = chips.find((c) => c.id === id || slugify(c.label) === id)
+
+    if (existing) {
+      setActiveChip(existing.id)
+    } else {
+      setChips((prev) => prev.map((c) => (c.id === activeChip ? { id, label: name } : c)))
+      setActiveChip(id)
+    }
+
     setSearchQuery('')
     setIsSearchOpen(false)
   }
 
   function handleSearchSubmit(query: string) {
-    setSearchChip(query)
-    setSearchQuery('')
-    setIsSearchOpen(false)
+    selectSearchedNeighborhood(query)
   }
 
   function handleSuggestionSelect(neighborhood: string) {
-    setSearchChip(neighborhood)
-    setSearchQuery('')
-    setIsSearchOpen(false)
-  }
-
-  function handleRemoveSearchChip() {
-    setSearchChip(null)
+    selectSearchedNeighborhood(neighborhood)
   }
 
   return (
@@ -99,7 +122,7 @@ export default function Home() {
       <MapView markers={markers} onMarkerClick={handleSelect} />
       <div className={styles.filterOverlay}>
         <SearchArea
-          chips={chips}
+          chips={displayChips}
           count={filtered.length}
           searchOpen={isSearchOpen}
           searchValue={searchQuery}
@@ -111,11 +134,14 @@ export default function Home() {
           onSuggestionSelect={handleSuggestionSelect}
           onFilterClick={() => setIsFilterOpen(true)}
           onChipClick={handleChipClick}
-          onChipRemove={handleRemoveSearchChip}
         />
       </div>
       <div className={styles.cardStrip}>
-        <PropertyStrip properties={filtered} onCardClick={handleSelect} />
+        {filtered.length === 0 ? (
+          <p className={styles.emptyMessage}>Nenhum imóvel encontrado com esses filtros.</p>
+        ) : (
+          <PropertyStrip properties={filtered} onCardClick={handleSelect} />
+        )}
       </div>
 
       {selectedProperty && (
