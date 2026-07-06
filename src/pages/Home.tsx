@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { SlidersHorizontal } from 'lucide-react'
 import SearchArea, { type FilterChip } from '@/components/home/SearchArea'
 import MapView, { type MapMarker } from '@/components/home/MapView'
 import PropertyStrip from '@/components/home/PropertyStrip'
@@ -9,6 +10,8 @@ import { parsePriceToNumber } from '@/lib/property'
 import { PROPERTIES } from '@/data/properties'
 import { CAMPINA_GRANDE_NEIGHBORHOODS } from '@/data/neighborhoods'
 import styles from '@/styles/pages/Home.module.css'
+
+const ALL_CHIP_ID = 'all'
 
 const INITIAL_NEIGHBORHOOD_CHIPS: FilterChip[] = [
   { id: 'universitario', label: 'Universitário' },
@@ -42,14 +45,17 @@ function matchesType(title: string, type: string): boolean {
 
 export default function Home() {
   const [chips, setChips] = useState<FilterChip[]>(INITIAL_NEIGHBORHOOD_CHIPS)
-  const [activeChip, setActiveChip] = useState(INITIAL_NEIGHBORHOOD_CHIPS[0].id)
+  const [activeChip, setActiveChip] = useState(ALL_CHIP_ID)
   const [selectedProperty, setSelectedProperty] = useState<PropertyCardProps | null>(null)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
 
-  const displayChips: FilterChip[] = chips.map((c) => ({ ...c, active: c.id === activeChip }))
+  const displayChips: FilterChip[] = [
+    { id: ALL_CHIP_ID, label: 'Todos' },
+    ...chips,
+  ].map((c) => ({ ...c, active: c.id === activeChip }))
   const activeChipData = chips.find((c) => c.id === activeChip)
 
   const suggestions =
@@ -136,6 +142,16 @@ export default function Home() {
           onChipClick={handleChipClick}
         />
       </div>
+
+      <button
+        className={styles.filtersFab}
+        onClick={() => setIsFilterOpen(true)}
+        aria-label="Abrir filtros"
+      >
+        <SlidersHorizontal className={styles.filtersFabIcon} />
+        Filtros
+      </button>
+
       <div className={styles.cardStrip}>
         {filtered.length === 0 ? (
           <p className={styles.emptyMessage}>Nenhum imóvel encontrado com esses filtros.</p>

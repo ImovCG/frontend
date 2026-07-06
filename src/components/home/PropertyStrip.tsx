@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { Bath, Bed, Heart, Maximize2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { type PropertyCardProps } from '@/components/home/PropertyCard'
@@ -12,9 +13,26 @@ interface PropertyStripProps {
 
 export default function PropertyStrip({ properties, onCardClick }: PropertyStripProps) {
   const { isFav, toggle } = useFavorites()
+  const stripRef = useRef<HTMLDivElement>(null)
+
+  // Mouse wheel scrolls vertically by default; translate it into horizontal
+  // scroll here so desktop users (not just touch/trackpad) can scroll the strip.
+  useEffect(() => {
+    const el = stripRef.current
+    if (!el) return
+
+    function handleWheel(e: WheelEvent) {
+      if (e.deltaY === 0) return
+      e.preventDefault()
+      el!.scrollLeft += e.deltaY
+    }
+
+    el.addEventListener('wheel', handleWheel, { passive: false })
+    return () => el.removeEventListener('wheel', handleWheel)
+  }, [])
 
   return (
-    <div className={styles.strip}>
+    <div ref={stripRef} className={styles.strip}>
       {properties.map((prop, i) => (
         <div key={prop.id} className={styles.card} onClick={() => onCardClick?.(i)}>
           <div className={styles.imageWrapper}>
