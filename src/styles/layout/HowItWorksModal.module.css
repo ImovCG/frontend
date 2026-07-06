@@ -30,6 +30,14 @@
   @apply mt-0.5 text-sm text-white/70;
 }
 
+.closeBtn {
+  @apply ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white;
+}
+
+.closeIcon {
+  @apply h-4 w-4;
+}
+
 .body {
   @apply p-5;
 }

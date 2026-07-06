@@ -1,6 +1,9 @@
+import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { MapPin } from 'lucide-react'
+import { MapPin, X } from 'lucide-react'
 import styles from '@/styles/layout/HowItWorksModal.module.css'
+
+export const HIDE_HOW_IT_WORKS_KEY = 'hideHowItWorks'
 
 interface Step {
   title: string
@@ -31,22 +34,40 @@ interface HowItWorksModalProps {
 }
 
 export default function HowItWorksModal({ onClose }: HowItWorksModalProps) {
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [onClose])
+
   function handleDontShowAgain() {
-    localStorage.setItem('hideHowItWorks', '1')
+    localStorage.setItem(HIDE_HOW_IT_WORKS_KEY, '1')
     onClose()
   }
 
   return createPortal(
-    <div className={styles.overlay} onClick={onClose}>
+    <div className={styles.overlay} onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="how-it-works-title">
       <div className={styles.card} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
           <span className={styles.iconWrapper}>
             <MapPin className={styles.icon} />
           </span>
           <div>
-            <h2 className={styles.title}>Como o imovCG funciona</h2>
+            <h2 id="how-it-works-title" className={styles.title}>Como o imovCG funciona</h2>
             <p className={styles.subtitle}>Encontre seu imóvel em 4 passos simples</p>
           </div>
+          <button className={styles.closeBtn} onClick={onClose} aria-label="Fechar">
+            <X className={styles.closeIcon} />
+          </button>
         </div>
 
         <div className={styles.body}>

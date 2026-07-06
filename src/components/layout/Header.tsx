@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Bell, Heart, Home, Info } from 'lucide-react'
-import HowItWorksModal from '@/components/layout/HowItWorksModal'
+import { cn } from '@/lib/utils'
+import HowItWorksModal, { HIDE_HOW_IT_WORKS_KEY } from '@/components/layout/HowItWorksModal'
 import styles from '@/styles/layout/Header.module.css'
 
 const NAV_LINKS = [
@@ -12,6 +13,12 @@ const NAV_LINKS = [
 
 export default function Header() {
   const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false)
+
+  useEffect(() => {
+    if (localStorage.getItem(HIDE_HOW_IT_WORKS_KEY) !== '1') {
+      setIsHowItWorksOpen(true)
+    }
+  }, [])
 
   return (
     <header className={styles.header}>
@@ -33,7 +40,10 @@ export default function Header() {
               {label}
             </NavLink>
           ))}
-          <button className={styles.navLink} onClick={() => setIsHowItWorksOpen(true)}>
+          <button
+            className={cn(styles.navLink, isHowItWorksOpen && styles.navLinkActive)}
+            onClick={() => setIsHowItWorksOpen(true)}
+          >
             <Info className={styles.navIcon} />
             Como funciona
           </button>
