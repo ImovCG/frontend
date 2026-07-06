@@ -1,15 +1,18 @@
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Bell, Heart, Home, Info } from 'lucide-react'
+import HowItWorksModal from '@/components/layout/HowItWorksModal'
 import styles from '@/styles/layout/Header.module.css'
 
 const NAV_LINKS = [
   { to: '/', label: 'Início', icon: Home, end: true },
   { to: '/favoritos', label: 'Favoritos', icon: Heart },
   { to: '/alertas', label: 'Alertas', icon: Bell },
-  { to: '/como-funciona', label: 'Como funciona', icon: Info },
 ]
 
 export default function Header() {
+  const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false)
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -30,8 +33,16 @@ export default function Header() {
               {label}
             </NavLink>
           ))}
+          <button className={styles.navLink} onClick={() => setIsHowItWorksOpen(true)}>
+            <Info className={styles.navIcon} />
+            Como funciona
+          </button>
         </nav>
       </div>
+
+      {isHowItWorksOpen && (
+        <HowItWorksModal onClose={() => setIsHowItWorksOpen(false)} />
+      )}
     </header>
   )
 }

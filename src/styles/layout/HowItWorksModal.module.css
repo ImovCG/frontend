@@ -1,0 +1,75 @@
+@reference "../../index.css";
+
+.overlay {
+  @apply fixed inset-0 z-[2000] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm;
+}
+
+.card {
+  @apply w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-neutral-900;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.header {
+  @apply flex items-start gap-3 bg-[#0D1B4B] p-5;
+}
+
+.iconWrapper {
+  @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#3B6FE0];
+}
+
+.icon {
+  @apply h-5 w-5 text-white;
+}
+
+.title {
+  @apply text-base font-bold text-white;
+}
+
+.subtitle {
+  @apply mt-0.5 text-sm text-white/70;
+}
+
+.body {
+  @apply p-5;
+}
+
+.step {
+  @apply flex gap-3;
+}
+
+.stepMarker {
+  @apply flex flex-col items-center;
+}
+
+.stepNumber {
+  @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-[#3B6FE0] text-sm font-semibold text-[#3B6FE0];
+}
+
+.stepLine {
+  @apply my-1 w-px flex-1 bg-white/15;
+}
+
+.stepContent {
+  @apply pb-5;
+}
+
+.stepTitle {
+  @apply text-sm font-semibold text-white;
+}
+
+.stepDescription {
+  @apply mt-1 text-xs leading-relaxed text-white/50;
+}
+
+.footer {
+  @apply flex items-center justify-between gap-3 border-t border-white/10 px-5 py-4;
+}
+
+.dontShow {
+  @apply text-xs text-white/50 underline-offset-2 transition-colors hover:text-white/80 hover:underline;
+}
+
+.searchBtn {
+  @apply rounded-lg bg-[#3B6FE0] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90;
+}
