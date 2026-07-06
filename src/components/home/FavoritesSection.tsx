@@ -13,11 +13,15 @@ export default function FavoritesSection({ title, subtitle, properties }: Favori
   return (
     <Section id="favoritos">
       <SectionHeader title={title} subtitle={subtitle} />
-      <div className={styles.grid}>
-        {properties.map((prop, i) => (
-          <PropertyCard key={i} {...prop} />
-        ))}
-      </div>
+      {properties.length === 0 ? (
+        <p className={styles.emptyMessage}>Você ainda não favoritou nenhum imóvel.</p>
+      ) : (
+        <div className={styles.grid}>
+          {properties.map((prop) => (
+            <PropertyCard key={prop.id} {...prop} />
+          ))}
+        </div>
+      )}
     </Section>
   )
 }
