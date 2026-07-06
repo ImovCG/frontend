@@ -1,6 +1,7 @@
 import { Bath, Bed, Heart, MapPin, Maximize2, Phone, X } from 'lucide-react'
-import { type PropertyCardProps, FALLBACK_SOURCE_URL } from '@/components/home/PropertyCard'
+import { type PropertyCardProps } from '@/components/home/PropertyCard'
 import { useFavorites } from '@/context/FavoritesContext'
+import { FALLBACK_SOURCE_URL } from '@/lib/property'
 import { cn } from '@/lib/utils'
 import styles from '@/styles/home/PropertyDetail.module.css'
 
@@ -18,7 +19,7 @@ export default function PropertyDetail({ property, onClose }: PropertyDetailProp
       <div className={styles.panel} onClick={(e) => e.stopPropagation()}>
         <div className={styles.imageWrapper}>
           <img src={property.image} alt={property.title} className={styles.image} />
-          <button className={styles.closeBtn} onClick={onClose}>
+          <button className={styles.closeBtn} onClick={onClose} aria-label="Fechar">
             <X className={styles.closeIcon} />
           </button>
           <span className={styles.priceBadge}>{property.price}</span>
@@ -67,6 +68,7 @@ export default function PropertyDetail({ property, onClose }: PropertyDetailProp
             <button
               className={cn(styles.btnFavorite, favorite && styles.btnFavoriteActive)}
               onClick={() => toggle(property.id)}
+              aria-label={favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
             >
               <Heart className={cn(styles.btnIcon, favorite && styles.heartActive)} />
             </button>

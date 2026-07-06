@@ -1,10 +1,9 @@
 import { Bath, Bed, Heart, Maximize2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useFavorites } from '@/context/FavoritesContext'
+import { type PropertyStatus } from '@/lib/property'
+import PropertyActions from '@/components/home/PropertyActions'
 import styles from '@/styles/home/PropertyCard.module.css'
-
-// TODO: remover fallback quando webscraping preencher sourceUrl real por imóvel
-export const FALLBACK_SOURCE_URL = 'https://www.olx.com.br'
 
 export interface PropertyCardProps {
   id: string
@@ -19,7 +18,7 @@ export interface PropertyCardProps {
   lng?: number
   neighborhoodId?: string
   isFavorite?: boolean
-  status?: string
+  status?: PropertyStatus
   sourceUrl?: string
   onClick?: () => void
 }
@@ -47,6 +46,7 @@ export default function PropertyCard({
         <button
           className={styles.favoriteBtn}
           onClick={(e) => { e.stopPropagation(); toggle(id) }}
+          aria-label={favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
         >
           <Heart className={cn(styles.heartIcon, favorite && styles.heartActive)} />
         </button>
@@ -61,16 +61,12 @@ export default function PropertyCard({
           <span className={styles.specItem}><Maximize2 className={styles.specIcon} />{area}m²</span>
         </div>
         <div className={styles.actions}>
-          <button
-            className={styles.viewBtn}
-            onClick={(e) => {
-              e.stopPropagation()
-              window.open(sourceUrl || FALLBACK_SOURCE_URL, '_blank', 'noopener,noreferrer')
-            }}
-          >
-            Ver anúncio
-          </button>
-          <span className={styles.statusBtn}>{status}</span>
+          <PropertyActions
+            status={status}
+            sourceUrl={sourceUrl}
+            viewClassName={styles.viewBtn}
+            statusClassName={styles.statusBtn}
+          />
         </div>
       </div>
     </div>

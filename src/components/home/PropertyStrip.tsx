@@ -1,6 +1,7 @@
 import { Bath, Bed, Heart, Maximize2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { type PropertyCardProps, FALLBACK_SOURCE_URL } from '@/components/home/PropertyCard'
+import { type PropertyCardProps } from '@/components/home/PropertyCard'
+import PropertyActions from '@/components/home/PropertyActions'
 import { useFavorites } from '@/context/FavoritesContext'
 import styles from '@/styles/home/PropertyStrip.module.css'
 
@@ -22,6 +23,7 @@ export default function PropertyStrip({ properties, onCardClick }: PropertyStrip
             <button
               className={styles.favoriteBtn}
               onClick={(e) => { e.stopPropagation(); toggle(prop.id) }}
+              aria-label={isFav(prop.id) ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
             >
               <Heart className={cn(styles.heartIcon, isFav(prop.id) && styles.heartActive)} />
             </button>
@@ -35,16 +37,12 @@ export default function PropertyStrip({ properties, onCardClick }: PropertyStrip
               <span className={styles.spec}><Maximize2 className={styles.specIcon} />{prop.area}m²</span>
             </div>
             <div className={styles.actions}>
-              <button
-                className={styles.viewBtn}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  window.open(prop.sourceUrl || FALLBACK_SOURCE_URL, '_blank', 'noopener,noreferrer')
-                }}
-              >
-                Ver anúncio
-              </button>
-              <span className={styles.statusBtn}>{prop.status ?? 'Disponível'}</span>
+              <PropertyActions
+                status={prop.status ?? 'Disponível'}
+                sourceUrl={prop.sourceUrl}
+                viewClassName={styles.viewBtn}
+                statusClassName={styles.statusBtn}
+              />
             </div>
           </div>
         </div>
