@@ -5,13 +5,13 @@
 }
 
 .card {
-  @apply w-full max-w-md cursor-default overflow-hidden rounded-2xl border border-white/10 bg-neutral-900;
+  @apply w-full max-w-md cursor-default overflow-hidden rounded-2xl border border-white/10 bg-[#302E2E];
   max-height: 90vh;
   overflow-y: auto;
 }
 
 .header {
-  @apply flex items-start gap-3 bg-[#0D1B4B] p-5;
+  @apply flex items-start gap-3 bg-[#302E2E] p-5;
 }
 
 .iconWrapper {
