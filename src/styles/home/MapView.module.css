@@ -1,0 +1,5 @@
+@reference "../../index.css";
+
+.wrapper {
+  @apply absolute inset-0;
+}

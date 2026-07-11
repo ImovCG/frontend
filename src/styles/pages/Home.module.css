@@ -1,0 +1,26 @@
+@reference "../../index.css";
+
+.mapWrapper {
+  @apply relative h-[calc(100vh-60px)];
+}
+
+.filterOverlay {
+  @apply absolute left-0 right-0 top-0 z-[1000] flex justify-center px-4 pt-4;
+}
+
+.cardStrip {
+  @apply absolute bottom-0 left-0 right-0 z-[1000] px-4 pb-4 pt-10;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 60%, transparent);
+}
+
+.emptyMessage {
+  @apply rounded-xl bg-white/10 px-4 py-3 text-sm text-white/80 backdrop-blur-sm;
+}
+
+.filtersFab {
+  @apply fixed right-4 top-20 z-[1000] flex items-center gap-2 rounded-xl bg-[#0D1B4B] px-4 py-2.5 text-sm font-semibold text-white shadow-xl transition-colors hover:bg-[#152667];
+}
+
+.filtersFabIcon {
+  @apply h-4 w-4;
+}

@@ -1,0 +1,9 @@
+@reference "../../index.css";
+
+.section {
+  @apply py-20 px-6;
+}
+
+.container {
+  @apply mx-auto max-w-6xl;
+}

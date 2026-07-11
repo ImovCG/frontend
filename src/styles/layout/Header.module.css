@@ -1,0 +1,33 @@
+@reference "../../index.css";
+
+.header {
+  @apply sticky top-0 z-50 w-full bg-[#0D1B4B];
+}
+
+.container {
+  @apply flex items-center justify-between px-6 py-3;
+}
+
+.logo {
+  @apply flex items-center no-underline;
+}
+
+.logoImg {
+  @apply h-9 w-auto object-contain;
+}
+
+.nav {
+  @apply flex items-center gap-6;
+}
+
+.navLink {
+  @apply flex items-center gap-1.5 text-sm text-white/80 transition-colors hover:text-white no-underline;
+}
+
+.navLinkActive {
+  @apply text-[#F5A623] font-semibold;
+}
+
+.navIcon {
+  @apply h-4 w-4;
+}

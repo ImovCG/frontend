@@ -1,0 +1,67 @@
+@reference "../../index.css";
+
+.overlay {
+  @apply fixed inset-0 z-[2000] flex items-end justify-center bg-black/60 backdrop-blur-sm;
+}
+
+.panel {
+  @apply w-full max-w-lg rounded-t-2xl bg-[#0D1B4B] border-t border-white/10;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  @apply flex items-center justify-between border-b border-white/10 px-5 py-4;
+}
+
+.title {
+  @apply text-base font-semibold text-white;
+}
+
+.closeBtn {
+  @apply flex h-8 w-8 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white;
+}
+
+.closeIcon {
+  @apply h-4 w-4;
+}
+
+.body {
+  @apply flex-1 overflow-y-auto px-5 py-4;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section {
+  @apply flex flex-col gap-2;
+}
+
+.label {
+  @apply text-xs font-semibold uppercase tracking-wider text-white/50;
+}
+
+.optionRow {
+  @apply flex flex-wrap gap-2;
+}
+
+.option {
+  @apply rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-white/70 transition-colors hover:border-white/30 hover:text-white;
+}
+
+.optionActive {
+  @apply rounded-xl border border-[#F5A623] bg-[#F5A623]/15 px-4 py-2 text-sm font-semibold text-[#F5A623];
+}
+
+.footer {
+  @apply flex gap-3 border-t border-white/10 px-5 py-4;
+}
+
+.clearBtn {
+  @apply flex-1 rounded-xl border border-white/20 py-3 text-sm font-medium text-white/70 transition-colors hover:border-white/40 hover:text-white;
+}
+
+.applyBtn {
+  @apply flex-1 rounded-xl bg-[#F5A623] py-3 text-sm font-semibold text-[#0D1B4B] transition-opacity hover:opacity-90;
+}

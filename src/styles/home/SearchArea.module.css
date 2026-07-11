@@ -1,0 +1,76 @@
+@reference "../../index.css";
+
+.wrapper {
+  @apply relative;
+}
+
+.bar {
+  @apply flex items-center gap-2 rounded-2xl bg-[#0D1B4B]/95 px-3 py-2.5 shadow-xl backdrop-blur-md border border-white/10;
+}
+
+.chip {
+  @apply flex items-center gap-1.5 rounded-xl bg-[#60A5FA]/20 px-4 py-2 text-sm font-medium text-[#93C5FD] transition-colors hover:bg-[#60A5FA]/30 hover:text-white border border-[#60A5FA]/30;
+}
+
+.chipActive {
+  @apply flex items-center gap-1.5 rounded-xl bg-[#F5A623] px-4 py-2 text-sm font-semibold text-[#0D1B4B] shadow-sm;
+}
+
+.chipCount {
+  @apply ml-0.5 rounded-full bg-black/15 px-1.5 py-0.5 text-[10px] font-bold;
+}
+
+.divider {
+  @apply mx-1 h-5 w-px bg-white/20;
+}
+
+.iconBtn {
+  @apply flex h-8 w-8 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white;
+}
+
+.filtrosBtn {
+  @apply flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white;
+}
+
+.icon {
+  @apply h-4 w-4;
+}
+
+.count {
+  @apply ml-1 flex flex-col items-center text-center leading-tight text-white;
+}
+
+.count strong {
+  @apply text-sm font-bold;
+}
+
+.count span {
+  @apply text-[10px] text-white/60;
+}
+
+.searchRow {
+  @apply flex flex-1 items-center gap-2 min-w-[280px];
+}
+
+.searchInputIcon {
+  @apply h-4 w-4 shrink-0 text-white/50;
+}
+
+.searchInput {
+  @apply flex-1 bg-transparent text-sm text-white placeholder-white/40 outline-none;
+}
+
+.dropdown {
+  @apply absolute left-0 right-0 top-full z-[1100] mt-2 overflow-hidden rounded-2xl border border-white/10 bg-[#0D1B4B]/95 shadow-xl backdrop-blur-md;
+  list-style: none;
+  margin-left: 0;
+  padding: 0.375rem;
+}
+
+.suggestion {
+  @apply flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white;
+}
+
+.suggestionIcon {
+  @apply h-3.5 w-3.5 shrink-0 text-white/40;
+}

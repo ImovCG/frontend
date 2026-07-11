@@ -1,0 +1,53 @@
+@reference "../../index.css";
+
+.sectionBg {
+  @apply bg-muted/40;
+}
+
+.sectionHeaderOverride {
+  @apply mb-8 text-left;
+}
+
+.grid {
+  @apply grid items-center gap-12 md:grid-cols-2;
+}
+
+.featureList {
+  @apply space-y-6;
+}
+
+.feature {
+  @apply flex gap-4;
+}
+
+.featureIcon {
+  @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary;
+}
+
+.featureTitle {
+  @apply font-semibold text-foreground;
+}
+
+.featureDescription {
+  @apply mt-1 text-sm text-muted-foreground;
+}
+
+.cta {
+  @apply mt-8;
+}
+
+.illustration {
+  @apply flex flex-col items-center gap-4 rounded-xl border bg-card p-8;
+}
+
+.illustrationIcon {
+  @apply flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary;
+}
+
+.illustrationText {
+  @apply max-w-xs text-center text-sm text-muted-foreground;
+}
+
+.bellIcon {
+  @apply h-8 w-8;
+}

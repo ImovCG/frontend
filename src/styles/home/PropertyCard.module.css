@@ -1,0 +1,65 @@
+@reference "../../index.css";
+
+.card {
+  @apply cursor-pointer overflow-hidden rounded-xl border bg-card transition-shadow hover:shadow-md;
+}
+
+.imageWrapper {
+  @apply relative aspect-video bg-muted;
+}
+
+.image {
+  @apply h-full w-full object-cover;
+}
+
+.favoriteBtn {
+  @apply absolute right-3 top-3 rounded-full bg-background/80 p-1.5 backdrop-blur-sm;
+}
+
+.heartIcon {
+  @apply h-4 w-4 text-muted-foreground;
+}
+
+.heartActive {
+  @apply fill-destructive text-destructive;
+}
+
+.body {
+  @apply p-4;
+}
+
+.price {
+  @apply text-lg font-semibold text-foreground;
+}
+
+.title {
+  @apply mt-1 line-clamp-1 text-sm font-medium text-foreground;
+}
+
+.location {
+  @apply mt-0.5 text-xs text-muted-foreground;
+}
+
+.specs {
+  @apply mt-3 flex gap-4 text-xs text-muted-foreground;
+}
+
+.specItem {
+  @apply flex items-center gap-1;
+}
+
+.specIcon {
+  @apply h-3 w-3;
+}
+
+.actions {
+  @apply mt-3 flex items-center gap-2;
+}
+
+.viewBtn {
+  @apply flex-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:opacity-90;
+}
+
+.statusBtn {
+  @apply rounded-lg border px-3 py-1.5 text-xs font-medium text-muted-foreground;
+}
