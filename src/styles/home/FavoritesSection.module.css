@@ -1,5 +1,9 @@
 @reference "../../index.css";
 
+.sectionBg {
+  @apply bg-[#302E2E];
+}
+
 .grid {
   @apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3;
 }
