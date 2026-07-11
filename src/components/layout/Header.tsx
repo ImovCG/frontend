@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Bell, Heart, Home, Info } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import HowItWorksModal, { HIDE_HOW_IT_WORKS_KEY } from '@/components/layout/HowItWorksModal'
+import HowItWorksModal from '@/components/layout/HowItWorksModal'
 import styles from '@/styles/layout/Header.module.css'
 
 const NAV_LINKS = [
@@ -13,12 +13,6 @@ const NAV_LINKS = [
 
 export default function Header() {
   const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false)
-
-  useEffect(() => {
-    if (localStorage.getItem(HIDE_HOW_IT_WORKS_KEY) !== '1') {
-      setIsHowItWorksOpen(true)
-    }
-  }, [])
 
   return (
     <header className={styles.header}>

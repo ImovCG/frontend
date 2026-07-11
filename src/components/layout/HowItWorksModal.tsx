@@ -3,8 +3,6 @@ import { createPortal } from 'react-dom'
 import { MapPin, X } from 'lucide-react'
 import styles from '@/styles/layout/HowItWorksModal.module.css'
 
-export const HIDE_HOW_IT_WORKS_KEY = 'hideHowItWorks'
-
 interface Step {
   title: string
   description: string
@@ -49,11 +47,6 @@ export default function HowItWorksModal({ onClose }: HowItWorksModalProps) {
     }
   }, [onClose])
 
-  function handleDontShowAgain() {
-    localStorage.setItem(HIDE_HOW_IT_WORKS_KEY, '1')
-    onClose()
-  }
-
   return createPortal(
     <div className={styles.overlay} onClick={onClose} role="dialog" aria-modal="true" aria-labelledby="how-it-works-title">
       <div className={styles.card} onClick={(e) => e.stopPropagation()}>
@@ -86,9 +79,6 @@ export default function HowItWorksModal({ onClose }: HowItWorksModalProps) {
         </div>
 
         <div className={styles.footer}>
-          <button className={styles.dontShow} onClick={handleDontShowAgain}>
-            Não mostrar novamente
-          </button>
           <button className={styles.searchBtn} onClick={onClose}>
             Buscar imóveis
           </button>

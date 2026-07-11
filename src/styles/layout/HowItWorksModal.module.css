@@ -51,7 +51,8 @@
 }
 
 .stepNumber {
-  @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-[#3B6FE0] text-sm font-semibold text-[#3B6FE0];
+  @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-[#3350a8];
+  background: #eff6ff;
 }
 
 .stepLine {
@@ -71,11 +72,7 @@
 }
 
 .footer {
-  @apply flex items-center justify-between gap-3 border-t border-white/10 px-5 py-4;
-}
-
-.dontShow {
-  @apply cursor-pointer text-xs text-white/50 underline-offset-2 transition-colors hover:text-white/80 hover:underline;
+  @apply flex justify-end border-t border-white/10 px-5 py-4;
 }
 
 .searchBtn {
