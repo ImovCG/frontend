@@ -1,7 +1,7 @@
 @reference "../../index.css";
 
 .sectionBg {
-  @apply bg-[#302E2E];
+  @apply bg-[#302E2E] pt-8 pb-16;
 }
 
 .grid {
