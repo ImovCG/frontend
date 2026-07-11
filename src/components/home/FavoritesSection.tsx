@@ -32,7 +32,12 @@ export default function FavoritesSection({ title, subtitle, header, properties, 
       ) : (
         <div className={styles.grid}>
           {properties.map((prop) => (
-            <PropertyCard key={prop.id} {...prop} onClick={() => onCardClick?.(prop.id)} />
+            <PropertyCard
+              key={prop.id}
+              {...prop}
+              variant="favorites"
+              onClick={() => onCardClick?.(prop.id)}
+            />
           ))}
         </div>
       )}

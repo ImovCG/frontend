@@ -21,6 +21,7 @@ export interface PropertyCardProps {
   status?: PropertyStatus
   sourceUrl?: string
   onClick?: () => void
+  variant?: 'default' | 'favorites'
 }
 
 export default function PropertyCard({
@@ -35,27 +36,29 @@ export default function PropertyCard({
   status = 'Disponível',
   sourceUrl,
   onClick,
+  variant = 'default',
 }: PropertyCardProps) {
   const { isFav, toggle } = useFavorites()
   const favorite = isFav(id)
+  const isFavorites = variant === 'favorites'
 
   return (
-    <div className={styles.card} onClick={onClick}>
+    <div className={cn(styles.card, isFavorites && styles.cardFavorites)} onClick={onClick}>
       <div className={styles.imageWrapper}>
         <img src={image} alt={title} className={styles.image} />
         <button
-          className={styles.favoriteBtn}
+          className={cn(styles.favoriteBtn, isFavorites && styles.favoriteBtnFavorites)}
           onClick={(e) => { e.stopPropagation(); toggle(id) }}
           aria-label={favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
         >
-          <Heart className={cn(styles.heartIcon, favorite && styles.heartActive)} />
+          <Heart className={cn(styles.heartIcon, isFavorites && styles.heartIconFavorites, favorite && styles.heartActive)} />
         </button>
       </div>
-      <div className={styles.body}>
-        <p className={styles.price}>{price}</p>
-        <h3 className={styles.title}>{title}</h3>
-        <p className={styles.location}>{location}</p>
-        <div className={styles.specs}>
+      <div className={cn(styles.body, isFavorites && styles.bodyFavorites)}>
+        <p className={cn(styles.price, isFavorites && styles.priceFavorites)}>{price}</p>
+        <h3 className={cn(styles.title, isFavorites && styles.titleFavorites)}>{title}</h3>
+        <p className={cn(styles.location, isFavorites && styles.locationFavorites)}>{location}</p>
+        <div className={cn(styles.specs, isFavorites && styles.specsFavorites)}>
           <span className={styles.specItem}><Bed className={styles.specIcon} />{beds}</span>
           <span className={styles.specItem}><Bath className={styles.specIcon} />{baths}</span>
           <span className={styles.specItem}><Maximize2 className={styles.specIcon} />{area}m²</span>
@@ -64,8 +67,8 @@ export default function PropertyCard({
           <PropertyActions
             status={status}
             sourceUrl={sourceUrl}
-            viewClassName={styles.viewBtn}
-            statusClassName={styles.statusBtn}
+            viewClassName={cn(styles.viewBtn, isFavorites && styles.viewBtnFavorites)}
+            statusClassName={cn(styles.statusBtn, isFavorites && styles.statusBtnFavorites)}
           />
         </div>
       </div>

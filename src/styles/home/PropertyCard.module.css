@@ -63,3 +63,40 @@
 .statusBtn {
   @apply rounded-lg border px-3 py-1.5 text-xs font-medium text-muted-foreground;
 }
+
+.cardFavorites {
+  @apply border border-white/10 bg-[#262624] hover:shadow-lg hover:shadow-black/20;
+}
+
+.favoriteBtnFavorites {
+  @apply bg-black/50 backdrop-blur-sm;
+}
+
+.heartIconFavorites {
+  @apply text-white/70;
+}
+
+.bodyFavorites {
+  @apply bg-[#262624];
+}
+
+.priceFavorites {
+  @apply text-white;
+}
+
+.titleFavorites {
+  @apply text-white;
+}
+
+.locationFavorites,
+.specsFavorites {
+  @apply text-white/55;
+}
+
+.viewBtnFavorites {
+  @apply bg-white text-[#0D1B4B] hover:opacity-90;
+}
+
+.statusBtnFavorites {
+  @apply border-white/20 text-white/60;
+}
