@@ -9,11 +9,11 @@
 }
 
 .chip {
-  @apply flex items-center gap-1.5 rounded-xl bg-[#60A5FA]/20 px-4 py-2 text-sm font-medium text-[#93C5FD] transition-colors hover:bg-[#60A5FA]/30 hover:text-white border border-[#60A5FA]/30;
+  @apply flex cursor-pointer items-center gap-1.5 rounded-xl bg-[#60A5FA]/20 px-4 py-2 text-sm font-medium text-[#93C5FD] transition-colors hover:bg-[#60A5FA]/30 hover:text-white border border-[#60A5FA]/30;
 }
 
 .chipActive {
-  @apply flex items-center gap-1.5 rounded-xl bg-[#F5A623] px-4 py-2 text-sm font-semibold text-[#0D1B4B] shadow-sm;
+  @apply flex cursor-pointer items-center gap-1.5 rounded-xl bg-[#F5A623] px-4 py-2 text-sm font-semibold text-[#0D1B4B] shadow-sm;
 }
 
 .chipCount {
@@ -25,11 +25,11 @@
 }
 
 .iconBtn {
-  @apply flex h-8 w-8 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white;
+  @apply flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white;
 }
 
 .filtrosBtn {
-  @apply flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white;
+  @apply flex cursor-pointer items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white;
 }
 
 .icon {
@@ -68,7 +68,7 @@
 }
 
 .suggestion {
-  @apply flex w-full items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white;
+  @apply flex w-full cursor-pointer items-center gap-3 rounded-xl px-4 py-2.5 text-sm text-white/80 transition-colors hover:bg-white/10 hover:text-white;
 }
 
 .suggestionIcon {

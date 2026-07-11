@@ -26,7 +26,7 @@
 }
 
 .favoriteBtn {
-  @apply absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm transition-colors hover:bg-black/70;
+  @apply absolute right-2 top-2 flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-black/50 backdrop-blur-sm transition-colors hover:bg-black/70;
 }
 
 .heartIcon {
@@ -66,7 +66,7 @@
 }
 
 .viewBtn {
-  @apply flex-1 rounded-md bg-white px-2 py-1 text-[10px] font-semibold text-[#0D1B4B] transition-colors hover:opacity-90;
+  @apply flex-1 cursor-pointer rounded-md bg-white px-2 py-1 text-[10px] font-semibold text-[#0D1B4B] transition-colors hover:opacity-90;
 }
 
 .statusBtn {

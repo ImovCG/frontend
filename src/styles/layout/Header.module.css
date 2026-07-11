@@ -9,7 +9,7 @@
 }
 
 .logo {
-  @apply flex items-center no-underline;
+  @apply flex cursor-pointer items-center no-underline;
 }
 
 .logoImg {
@@ -21,7 +21,7 @@
 }
 
 .navLink {
-  @apply flex items-center gap-1.5 text-sm text-white/80 transition-colors hover:text-white no-underline;
+  @apply flex cursor-pointer items-center gap-1.5 text-sm text-white/80 transition-colors hover:text-white no-underline;
 }
 
 .navLinkActive {
