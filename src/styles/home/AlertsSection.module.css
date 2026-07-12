@@ -42,7 +42,7 @@
 }
 
 .cta {
-  @apply mt-8;
+  @apply mt-8 cursor-pointer rounded-lg bg-[#3B6FE0] px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:bg-[#3B6FE0] hover:opacity-90;
 }
 
 .illustration {
