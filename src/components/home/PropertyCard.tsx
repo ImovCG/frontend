@@ -1,7 +1,6 @@
 import { Bath, Bed, Heart, Maximize2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useFavorites } from '@/context/FavoritesContext'
-import { type PropertyStatus } from '@/lib/property'
 import PropertyActions from '@/components/home/PropertyActions'
 import styles from '@/styles/home/PropertyCard.module.css'
 
@@ -18,8 +17,10 @@ export interface PropertyCardProps {
   lng?: number
   neighborhoodId?: string
   isFavorite?: boolean
-  status?: PropertyStatus
+  tipoAnuncio?: string
   sourceUrl?: string
+  description?: string
+  categoria?: string
   onClick?: () => void
   variant?: 'default' | 'favorites'
 }
@@ -33,7 +34,7 @@ export default function PropertyCard({
   beds,
   baths,
   area,
-  status = 'Disponível',
+  tipoAnuncio,
   sourceUrl,
   onClick,
   variant = 'default',
@@ -65,10 +66,10 @@ export default function PropertyCard({
         </div>
         <div className={styles.actions}>
           <PropertyActions
-            status={status}
+            tipoAnuncio={tipoAnuncio}
             sourceUrl={sourceUrl}
             viewClassName={cn(styles.viewBtn, isFavorites && styles.viewBtnFavorites)}
-            statusClassName={cn(styles.statusBtn, isFavorites && styles.statusBtnFavorites)}
+            badgeClassName={cn(styles.statusBtn, isFavorites && styles.statusBtnFavorites)}
           />
         </div>
       </div>

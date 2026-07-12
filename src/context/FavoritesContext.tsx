@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, type ReactNode } from 'react'
-import { PROPERTIES } from '@/data/properties'
 
 interface FavoritesContextValue {
   isFav: (id: string) => boolean
@@ -14,7 +13,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
       const stored = localStorage.getItem('imovcg-favorites')
       if (stored) return new Set(JSON.parse(stored) as string[])
     } catch {}
-    return new Set(PROPERTIES.filter((p) => p.isFavorite).map((p) => p.id))
+    return new Set()
   })
 
   function toggle(id: string) {

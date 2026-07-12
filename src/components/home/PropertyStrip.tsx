@@ -56,10 +56,10 @@ export default function PropertyStrip({ properties, onCardClick }: PropertyStrip
             </div>
             <div className={styles.actions}>
               <PropertyActions
-                status={prop.status ?? 'Disponível'}
+                tipoAnuncio={prop.tipoAnuncio}
                 sourceUrl={prop.sourceUrl}
                 viewClassName={styles.viewBtn}
-                statusClassName={styles.statusBtn}
+                badgeClassName={styles.statusBtn}
               />
             </div>
           </div>

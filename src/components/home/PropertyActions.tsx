@@ -1,13 +1,18 @@
-import { FALLBACK_SOURCE_URL, type PropertyStatus } from '@/lib/property'
+import { FALLBACK_SOURCE_URL } from '@/lib/property'
 
 interface PropertyActionsProps {
-  status: PropertyStatus
+  tipoAnuncio?: string
   sourceUrl?: string
   viewClassName: string
-  statusClassName: string
+  badgeClassName: string
 }
 
-export default function PropertyActions({ status, sourceUrl, viewClassName, statusClassName }: PropertyActionsProps) {
+export default function PropertyActions({
+  tipoAnuncio,
+  sourceUrl,
+  viewClassName,
+  badgeClassName,
+}: PropertyActionsProps) {
   return (
     <>
       <button
@@ -19,7 +24,7 @@ export default function PropertyActions({ status, sourceUrl, viewClassName, stat
       >
         Ver anúncio
       </button>
-      <span className={statusClassName}>{status}</span>
+      {tipoAnuncio && <span className={badgeClassName}>{tipoAnuncio}</span>}
     </>
   )
 }

@@ -3,9 +3,7 @@ import styles from '@/styles/home/FilterPanel.module.css'
 
 export interface Filters {
   minBeds: number
-  minBaths: number
   maxPrice: number
-  type: string
 }
 
 interface FilterPanelProps {
@@ -23,13 +21,6 @@ const BED_OPTIONS = [
   { label: '4+', value: 4 },
 ]
 
-const BATH_OPTIONS = [
-  { label: 'Qualquer', value: 0 },
-  { label: '1+', value: 1 },
-  { label: '2+', value: 2 },
-  { label: '3+', value: 3 },
-]
-
 const PRICE_OPTIONS = [
   { label: 'Qualquer', value: 0 },
   { label: 'Até R$ 300k', value: 300_000 },
@@ -38,16 +29,7 @@ const PRICE_OPTIONS = [
   { label: 'Até R$ 2M', value: 2_000_000 },
 ]
 
-const TYPE_OPTIONS = [
-  { label: 'Todos', value: '' },
-  { label: 'Casa', value: 'Casa' },
-  { label: 'Apartamento', value: 'Apartamento' },
-  { label: 'Sobrado', value: 'Sobrado' },
-  { label: 'Flat', value: 'Flat' },
-  { label: 'Cobertura', value: 'Cobertura' },
-]
-
-export const DEFAULT_FILTERS: Filters = { minBeds: 0, minBaths: 0, maxPrice: 0, type: '' }
+export const DEFAULT_FILTERS: Filters = { minBeds: 0, maxPrice: 0 }
 
 export default function FilterPanel({ filters, onChange, onClose, onClear }: FilterPanelProps) {
   function set<K extends keyof Filters>(key: K, value: Filters[K]) {
@@ -88,36 +70,6 @@ export default function FilterPanel({ filters, onChange, onClose, onClear }: Fil
                   key={o.value}
                   onClick={() => set('minBeds', o.value)}
                   className={filters.minBeds === o.value ? styles.optionActive : styles.option}
-                >
-                  {o.label}
-                </button>
-              ))}
-            </div>
-          </section>
-
-          <section className={styles.section}>
-            <p className={styles.label}>Banheiros</p>
-            <div className={styles.optionRow}>
-              {BATH_OPTIONS.map((o) => (
-                <button
-                  key={o.value}
-                  onClick={() => set('minBaths', o.value)}
-                  className={filters.minBaths === o.value ? styles.optionActive : styles.option}
-                >
-                  {o.label}
-                </button>
-              ))}
-            </div>
-          </section>
-
-          <section className={styles.section}>
-            <p className={styles.label}>Tipo de imóvel</p>
-            <div className={styles.optionRow}>
-              {TYPE_OPTIONS.map((o) => (
-                <button
-                  key={o.value}
-                  onClick={() => set('type', o.value)}
-                  className={filters.type === o.value ? styles.optionActive : styles.option}
                 >
                   {o.label}
                 </button>

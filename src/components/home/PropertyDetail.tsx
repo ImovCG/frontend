@@ -28,7 +28,9 @@ export default function PropertyDetail({ property, onClose }: PropertyDetailProp
         <div className={styles.body}>
           <div className={styles.headerRow}>
             <h2 className={styles.title}>{property.title}</h2>
-            <span className={styles.statusBadge}>{property.status ?? 'Disponível'}</span>
+            {property.tipoAnuncio && (
+              <span className={styles.statusBadge}>{property.tipoAnuncio}</span>
+            )}
           </div>
 
           <div className={styles.location}>
@@ -54,9 +56,13 @@ export default function PropertyDetail({ property, onClose }: PropertyDetailProp
           <div className={styles.descriptionSection}>
             <h3 className={styles.sectionLabel}>Sobre o imóvel</h3>
             <p className={styles.description}>
-              Imóvel bem localizado em {property.location.split(',')[0]}, com excelente acabamento,
-              áreas de lazer completas e fácil acesso às principais vias da cidade.
-              Documentação regularizada e pronto para financiamento.
+              {property.description ?? (
+                <>
+                  Imóvel bem localizado em {property.location.split(',')[0]}, com excelente acabamento,
+                  áreas de lazer completas e fácil acesso às principais vias da cidade.
+                  Documentação regularizada e pronto para financiamento.
+                </>
+              )}
             </p>
           </div>
 
