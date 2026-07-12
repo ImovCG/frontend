@@ -21,13 +21,13 @@
 }
 
 .emptyTitle {
-  @apply text-lg font-semibold text-foreground;
+  @apply text-lg font-semibold text-white;
 }
 
 .emptyText {
-  @apply max-w-sm text-sm text-muted-foreground;
+  @apply max-w-sm text-sm text-white;
 }
 
 .emptyCta {
-  @apply mt-2 cursor-pointer rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground no-underline transition-opacity hover:opacity-90;
+  @apply mt-2 cursor-pointer rounded-lg bg-[#3B6FE0] px-5 py-2.5 text-sm font-semibold text-white no-underline transition-opacity hover:opacity-90;
 }
