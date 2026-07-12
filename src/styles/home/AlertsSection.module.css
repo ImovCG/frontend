@@ -1,11 +1,19 @@
 @reference "../../index.css";
 
 .sectionBg {
-  @apply bg-muted/40;
+  @apply min-h-[calc(100vh-60px)] bg-[#302E2E] pt-16 pb-8;
 }
 
 .sectionHeaderOverride {
   @apply mb-8 text-left;
+}
+
+.sectionHeaderOverride h2 {
+  @apply text-white;
+}
+
+.sectionHeaderOverride p {
+  @apply text-white/60;
 }
 
 .grid {
@@ -21,15 +29,16 @@
 }
 
 .featureIcon {
-  @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary;
+  @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-[#3350a8];
+  background: #eff6ff;
 }
 
 .featureTitle {
-  @apply font-semibold text-foreground;
+  @apply font-semibold text-white;
 }
 
 .featureDescription {
-  @apply mt-1 text-sm text-muted-foreground;
+  @apply mt-1 text-sm text-white/60;
 }
 
 .cta {
@@ -37,15 +46,16 @@
 }
 
 .illustration {
-  @apply flex flex-col items-center gap-4 rounded-xl border bg-card p-8;
+  @apply flex flex-col items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-8;
 }
 
 .illustrationIcon {
-  @apply flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary;
+  @apply flex h-16 w-16 items-center justify-center rounded-full text-[#3350a8];
+  background: #eff6ff;
 }
 
 .illustrationText {
-  @apply max-w-xs text-center text-sm text-muted-foreground;
+  @apply max-w-xs text-center text-sm text-white/60;
 }
 
 .bellIcon {

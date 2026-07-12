@@ -1,7 +1,6 @@
 import { Bath, Bed, Heart, Maximize2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useFavorites } from '@/context/FavoritesContext'
-import { type PropertyStatus } from '@/lib/property'
 import PropertyActions from '@/components/home/PropertyActions'
 import styles from '@/styles/home/PropertyCard.module.css'
 
@@ -18,9 +17,12 @@ export interface PropertyCardProps {
   lng?: number
   neighborhoodId?: string
   isFavorite?: boolean
-  status?: PropertyStatus
+  tipoAnuncio?: string
   sourceUrl?: string
+  description?: string
+  categoria?: string
   onClick?: () => void
+  variant?: 'default' | 'favorites'
 }
 
 export default function PropertyCard({
@@ -32,40 +34,42 @@ export default function PropertyCard({
   beds,
   baths,
   area,
-  status = 'Disponível',
+  tipoAnuncio,
   sourceUrl,
   onClick,
+  variant = 'default',
 }: PropertyCardProps) {
   const { isFav, toggle } = useFavorites()
   const favorite = isFav(id)
+  const isFavorites = variant === 'favorites'
 
   return (
-    <div className={styles.card} onClick={onClick}>
+    <div className={cn(styles.card, isFavorites && styles.cardFavorites)} onClick={onClick}>
       <div className={styles.imageWrapper}>
         <img src={image} alt={title} className={styles.image} />
         <button
-          className={styles.favoriteBtn}
+          className={cn(styles.favoriteBtn, isFavorites && styles.favoriteBtnFavorites)}
           onClick={(e) => { e.stopPropagation(); toggle(id) }}
           aria-label={favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
         >
-          <Heart className={cn(styles.heartIcon, favorite && styles.heartActive)} />
+          <Heart className={cn(styles.heartIcon, isFavorites && styles.heartIconFavorites, favorite && styles.heartActive)} />
         </button>
       </div>
-      <div className={styles.body}>
-        <p className={styles.price}>{price}</p>
-        <h3 className={styles.title}>{title}</h3>
-        <p className={styles.location}>{location}</p>
-        <div className={styles.specs}>
+      <div className={cn(styles.body, isFavorites && styles.bodyFavorites)}>
+        <p className={cn(styles.price, isFavorites && styles.priceFavorites)}>{price}</p>
+        <h3 className={cn(styles.title, isFavorites && styles.titleFavorites)}>{title}</h3>
+        <p className={cn(styles.location, isFavorites && styles.locationFavorites)}>{location}</p>
+        <div className={cn(styles.specs, isFavorites && styles.specsFavorites)}>
           <span className={styles.specItem}><Bed className={styles.specIcon} />{beds}</span>
           <span className={styles.specItem}><Bath className={styles.specIcon} />{baths}</span>
           <span className={styles.specItem}><Maximize2 className={styles.specIcon} />{area}m²</span>
         </div>
         <div className={styles.actions}>
           <PropertyActions
-            status={status}
+            tipoAnuncio={tipoAnuncio}
             sourceUrl={sourceUrl}
-            viewClassName={styles.viewBtn}
-            statusClassName={styles.statusBtn}
+            viewClassName={cn(styles.viewBtn, isFavorites && styles.viewBtnFavorites)}
+            badgeClassName={cn(styles.statusBtn, isFavorites && styles.statusBtnFavorites)}
           />
         </div>
       </div>

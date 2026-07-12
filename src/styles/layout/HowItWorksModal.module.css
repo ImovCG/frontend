@@ -1,17 +1,17 @@
 @reference "../../index.css";
 
 .overlay {
-  @apply fixed inset-0 z-[2000] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm;
+  @apply fixed inset-0 z-[2000] flex cursor-pointer items-center justify-center bg-black/60 p-4 backdrop-blur-sm;
 }
 
 .card {
-  @apply w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-neutral-900;
+  @apply w-full max-w-md cursor-default overflow-hidden rounded-2xl border border-white/10 bg-[#302E2E];
   max-height: 90vh;
   overflow-y: auto;
 }
 
 .header {
-  @apply flex items-start gap-3 bg-[#0D1B4B] p-5;
+  @apply flex items-start gap-3 bg-[#302E2E] p-5;
 }
 
 .iconWrapper {
@@ -31,7 +31,7 @@
 }
 
 .closeBtn {
-  @apply ml-auto flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white;
+  @apply ml-auto flex h-7 w-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white;
 }
 
 .closeIcon {
@@ -51,7 +51,8 @@
 }
 
 .stepNumber {
-  @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-[#3B6FE0] text-sm font-semibold text-[#3B6FE0];
+  @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-[#3350a8];
+  background: #eff6ff;
 }
 
 .stepLine {
@@ -71,13 +72,9 @@
 }
 
 .footer {
-  @apply flex items-center justify-between gap-3 border-t border-white/10 px-5 py-4;
-}
-
-.dontShow {
-  @apply text-xs text-white/50 underline-offset-2 transition-colors hover:text-white/80 hover:underline;
+  @apply flex justify-end border-t border-white/10 px-5 py-4;
 }
 
 .searchBtn {
-  @apply rounded-lg bg-[#3B6FE0] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90;
+  @apply cursor-pointer rounded-lg bg-[#3B6FE0] px-4 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90;
 }

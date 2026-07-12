@@ -13,7 +13,7 @@
 }
 
 .favoriteBtn {
-  @apply absolute right-3 top-3 rounded-full bg-background/80 p-1.5 backdrop-blur-sm;
+  @apply absolute right-3 top-3 cursor-pointer rounded-full bg-background/80 p-1.5 backdrop-blur-sm;
 }
 
 .heartIcon {
@@ -57,9 +57,46 @@
 }
 
 .viewBtn {
-  @apply flex-1 rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:opacity-90;
+  @apply flex-1 cursor-pointer rounded-lg bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground transition-colors hover:opacity-90;
 }
 
 .statusBtn {
   @apply rounded-lg border px-3 py-1.5 text-xs font-medium text-muted-foreground;
+}
+
+.cardFavorites {
+  @apply border border-white/10 bg-[#262624] hover:shadow-lg hover:shadow-black/20;
+}
+
+.favoriteBtnFavorites {
+  @apply bg-black/50 backdrop-blur-sm;
+}
+
+.heartIconFavorites {
+  @apply text-white/70;
+}
+
+.bodyFavorites {
+  @apply bg-[#262624];
+}
+
+.priceFavorites {
+  @apply text-white;
+}
+
+.titleFavorites {
+  @apply text-white;
+}
+
+.locationFavorites,
+.specsFavorites {
+  @apply text-white/55;
+}
+
+.viewBtnFavorites {
+  @apply bg-white text-[#0D1B4B] hover:opacity-90;
+}
+
+.statusBtnFavorites {
+  @apply border-white/20 text-white/60;
 }

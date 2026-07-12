@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { Heart } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import Section from '@/components/layout/Section'
@@ -6,16 +7,17 @@ import PropertyCard, { type PropertyCardProps } from '@/components/home/Property
 import styles from '@/styles/home/FavoritesSection.module.css'
 
 interface FavoritesSectionProps {
-  title: string
+  title?: string
   subtitle?: string
+  header?: ReactNode
   properties: PropertyCardProps[]
   onCardClick?: (id: string) => void
 }
 
-export default function FavoritesSection({ title, subtitle, properties, onCardClick }: FavoritesSectionProps) {
+export default function FavoritesSection({ title, subtitle, header, properties, onCardClick }: FavoritesSectionProps) {
   return (
-    <Section id="favoritos">
-      <SectionHeader title={title} subtitle={subtitle} />
+    <Section id="favoritos" className={styles.sectionBg}>
+      {header ?? (title ? <SectionHeader title={title} subtitle={subtitle} /> : null)}
       {properties.length === 0 ? (
         <div className={styles.empty}>
           <span className={styles.emptyIcon}>
@@ -30,7 +32,12 @@ export default function FavoritesSection({ title, subtitle, properties, onCardCl
       ) : (
         <div className={styles.grid}>
           {properties.map((prop) => (
-            <PropertyCard key={prop.id} {...prop} onClick={() => onCardClick?.(prop.id)} />
+            <PropertyCard
+              key={prop.id}
+              {...prop}
+              variant="favorites"
+              onClick={() => onCardClick?.(prop.id)}
+            />
           ))}
         </div>
       )}

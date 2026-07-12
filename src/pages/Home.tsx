@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { SlidersHorizontal } from 'lucide-react'
 import SearchArea, { type FilterChip } from '@/components/home/SearchArea'
 import MapView, { type MapMarker } from '@/components/home/MapView'
@@ -6,9 +6,10 @@ import PropertyStrip from '@/components/home/PropertyStrip'
 import PropertyDetail from '@/components/home/PropertyDetail'
 import FilterPanel, { DEFAULT_FILTERS, type Filters } from '@/components/home/FilterPanel'
 import { type PropertyCardProps } from '@/components/home/PropertyCard'
-import { parsePriceToNumber } from '@/lib/property'
-import { PROPERTIES } from '@/data/properties'
+import { useImoveis } from '@/hooks/useImoveis'
+import { slugify } from '@/lib/neighborhoodCoords'
 import { CAMPINA_GRANDE_NEIGHBORHOODS } from '@/data/neighborhoods'
+import type { ImoveisFiltros } from '@/types/imovel'
 import styles from '@/styles/pages/Home.module.css'
 
 const ALL_CHIP_ID = 'all'
@@ -20,29 +21,6 @@ const INITIAL_NEIGHBORHOOD_CHIPS: FilterChip[] = [
   { id: 'centenario', label: 'Centenário' },
 ]
 
-const ACCENT_MAP: Record<string, string> = {
-  á: 'a', à: 'a', â: 'a', ã: 'a', ä: 'a',
-  é: 'e', è: 'e', ê: 'e', ë: 'e',
-  í: 'i', ì: 'i', î: 'i', ï: 'i',
-  ó: 'o', ò: 'o', ô: 'o', õ: 'o', ö: 'o',
-  ú: 'u', ù: 'u', û: 'u', ü: 'u',
-  ç: 'c', ñ: 'n',
-}
-
-function slugify(text: string): string {
-  const plain = text
-    .toLowerCase()
-    .split('')
-    .map((ch) => ACCENT_MAP[ch] ?? ch)
-    .join('')
-  return plain.trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-}
-
-function matchesType(title: string, type: string): boolean {
-  if (!type) return true
-  return title.toLowerCase().includes(type.toLowerCase())
-}
-
 export default function Home() {
   const [chips, setChips] = useState<FilterChip[]>(INITIAL_NEIGHBORHOOD_CHIPS)
   const [activeChip, setActiveChip] = useState(ALL_CHIP_ID)
@@ -52,11 +30,30 @@ export default function Home() {
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
 
+  const activeChipData = chips.find((c) => c.id === activeChip)
+
+  const apiFilters = useMemo<ImoveisFiltros>(() => {
+    const next: ImoveisFiltros = { cidade: 'Campina Grande' }
+
+    if (activeChipData) {
+      next.bairro = activeChipData.label
+    }
+    if (filters.maxPrice > 0) {
+      next.precoMax = filters.maxPrice
+    }
+    if (filters.minBeds > 0) {
+      next.quartosMin = filters.minBeds
+    }
+
+    return next
+  }, [activeChipData, filters.maxPrice, filters.minBeds])
+
+  const { properties, loading, error, refetch } = useImoveis(apiFilters)
+
   const displayChips: FilterChip[] = [
     { id: ALL_CHIP_ID, label: 'Todos' },
     ...chips,
   ].map((c) => ({ ...c, active: c.id === activeChip }))
-  const activeChipData = chips.find((c) => c.id === activeChip)
 
   const suggestions =
     searchQuery.length >= 2
@@ -65,31 +62,12 @@ export default function Home() {
         ).slice(0, 6)
       : []
 
-  const filtered = PROPERTIES.filter((p) => {
-    if (activeChipData) {
-      const q = activeChipData.label.toLowerCase()
-      const matchesNeighborhood =
-        p.neighborhoodId === activeChipData.id ||
-        p.title.toLowerCase().includes(q) ||
-        p.location.toLowerCase().includes(q)
-      if (!matchesNeighborhood) return false
-    }
-    if (filters.minBeds && p.beds < filters.minBeds) return false
-    if (filters.minBaths && p.baths < filters.minBaths) return false
-    if (filters.maxPrice) {
-      const price = parsePriceToNumber(p.price)
-      if (price !== null && price > filters.maxPrice) return false
-    }
-    if (!matchesType(p.title, filters.type)) return false
-    return true
-  })
-
-  const markers: MapMarker[] = filtered
+  const markers: MapMarker[] = properties
     .filter((p) => p.lat !== undefined && p.lng !== undefined)
     .map((p, i) => ({ lat: p.lat!, lng: p.lng!, price: p.price, index: i }))
 
   function handleSelect(index: number) {
-    setSelectedProperty(filtered[index] ?? null)
+    setSelectedProperty(properties[index] ?? null)
   }
 
   function handleChipClick(id: string) {
@@ -98,8 +76,6 @@ export default function Home() {
     setIsSearchOpen(false)
   }
 
-  // Neighborhood not in the visible slots takes over whichever slot is currently active,
-  // so it sticks around like a rotating queue as the user moves between chips.
   function selectSearchedNeighborhood(name: string) {
     const id = slugify(name)
     const existing = chips.find((c) => c.id === id || slugify(c.label) === id)
@@ -129,7 +105,7 @@ export default function Home() {
       <div className={styles.filterOverlay}>
         <SearchArea
           chips={displayChips}
-          count={filtered.length}
+          count={loading ? 0 : properties.length}
           searchOpen={isSearchOpen}
           searchValue={searchQuery}
           suggestions={suggestions}
@@ -153,10 +129,19 @@ export default function Home() {
       </button>
 
       <div className={styles.cardStrip}>
-        {filtered.length === 0 ? (
+        {loading ? (
+          <p className={styles.emptyMessage}>Carregando imóveis...</p>
+        ) : error ? (
+          <div className={styles.emptyMessage}>
+            <p>{error}</p>
+            <button type="button" onClick={refetch} className={styles.retryBtn}>
+              Tentar novamente
+            </button>
+          </div>
+        ) : properties.length === 0 ? (
           <p className={styles.emptyMessage}>Nenhum imóvel encontrado com esses filtros.</p>
         ) : (
-          <PropertyStrip properties={filtered} onCardClick={handleSelect} />
+          <PropertyStrip properties={properties} onCardClick={handleSelect} />
         )}
       </div>
 

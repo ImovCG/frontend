@@ -1,5 +1,3 @@
-export type PropertyStatus = 'Disponível' | 'Em análise' | 'Vendido' | 'Reservado'
-
 // TODO: remover fallback quando webscraping preencher sourceUrl real por imóvel
 export const FALLBACK_SOURCE_URL = 'https://www.olx.com.br'
 

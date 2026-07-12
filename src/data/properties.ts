@@ -7,7 +7,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Casa com piscina no Universitário',
     price: 'R$ 750.000',
     location: 'Universitário, Campina Grande - PB',
-    beds: 3, baths: 2, area: 180, isFavorite: true, status: 'Disponível',
+    beds: 3, baths: 2, area: 180, isFavorite: true,
     lat: -7.2180, lng: -35.8930, neighborhoodId: 'universitario',
   },
   {
@@ -25,7 +25,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Sobrado no Bodocongó',
     price: 'R$ 590.000',
     location: 'Bodocongó, Campina Grande - PB',
-    beds: 4, baths: 3, area: 240, isFavorite: true, status: 'Em análise',
+    beds: 4, baths: 3, area: 240, isFavorite: true,
     lat: -7.2430, lng: -35.9100, neighborhoodId: 'bodocongo',
   },
   {
@@ -43,7 +43,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Cobertura no Centenário',
     price: 'R$ 1.200.000',
     location: 'Centenário, Campina Grande - PB',
-    beds: 4, baths: 4, area: 320, isFavorite: false, status: 'Vendido',
+    beds: 4, baths: 4, area: 320, isFavorite: false,
     lat: -7.2130, lng: -35.8680, neighborhoodId: 'centenario',
   },
   {
@@ -61,7 +61,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Casa alto padrão no Catolé',
     price: 'R$ 980.000',
     location: 'Catolé, Campina Grande - PB',
-    beds: 4, baths: 3, area: 290, isFavorite: false, status: 'Disponível',
+    beds: 4, baths: 3, area: 290, isFavorite: false,
     lat: -7.2260, lng: -35.8790, neighborhoodId: 'catole',
   },
   {
@@ -70,7 +70,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Apartamento no Alto Branco',
     price: 'R$ 540.000',
     location: 'Alto Branco, Campina Grande - PB',
-    beds: 3, baths: 2, area: 110, isFavorite: false, status: 'Disponível',
+    beds: 3, baths: 2, area: 110, isFavorite: false,
     lat: -7.2340, lng: -35.8850, neighborhoodId: 'alto-branco',
   },
   {
@@ -79,7 +79,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Casa no José Pinheiro',
     price: 'R$ 320.000',
     location: 'José Pinheiro, Campina Grande - PB',
-    beds: 2, baths: 2, area: 95, isFavorite: false, status: 'Reservado',
+    beds: 2, baths: 2, area: 95, isFavorite: false,
     lat: -7.2280, lng: -35.8950, neighborhoodId: 'jose-pinheiro',
   },
   {
@@ -88,7 +88,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Casa popular nas Malvinas',
     price: 'R$ 165.000',
     location: 'Malvinas, Campina Grande - PB',
-    beds: 2, baths: 1, area: 60, isFavorite: false, status: 'Disponível',
+    beds: 2, baths: 1, area: 60, isFavorite: false,
     lat: -7.1980, lng: -35.9050, neighborhoodId: 'malvinas',
   },
   {
@@ -97,7 +97,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Sobrado na Prata',
     price: 'R$ 610.000',
     location: 'Prata, Campina Grande - PB',
-    beds: 3, baths: 3, area: 200, isFavorite: false, status: 'Em análise',
+    beds: 3, baths: 3, area: 200, isFavorite: false,
     lat: -7.2400, lng: -35.8700, neighborhoodId: 'prata',
   },
   {
@@ -106,7 +106,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Apartamento na Liberdade',
     price: 'R$ 275.000',
     location: 'Liberdade, Campina Grande - PB',
-    beds: 2, baths: 1, area: 68, isFavorite: false, status: 'Disponível',
+    beds: 2, baths: 1, area: 68, isFavorite: false,
     lat: -7.2200, lng: -35.8830, neighborhoodId: 'liberdade',
   },
   {
@@ -115,7 +115,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Casa no Cruzeiro',
     price: 'R$ 390.000',
     location: 'Cruzeiro, Campina Grande - PB',
-    beds: 3, baths: 2, area: 140, isFavorite: false, status: 'Disponível',
+    beds: 3, baths: 2, area: 140, isFavorite: false,
     lat: -7.2350, lng: -35.8950, neighborhoodId: 'cruzeiro',
   },
   {
@@ -124,7 +124,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Casa térrea no Itararé',
     price: 'R$ 230.000',
     location: 'Itararé, Campina Grande - PB',
-    beds: 2, baths: 1, area: 80, isFavorite: false, status: 'Vendido',
+    beds: 2, baths: 1, area: 80, isFavorite: false,
     lat: -7.2450, lng: -35.8600, neighborhoodId: 'itarare',
   },
   {
@@ -133,7 +133,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Casa no Mirante',
     price: 'R$ 450.000',
     location: 'Mirante, Campina Grande - PB',
-    beds: 3, baths: 2, area: 155, isFavorite: false, status: 'Disponível',
+    beds: 3, baths: 2, area: 155, isFavorite: false,
     lat: -7.2050, lng: -35.8770, neighborhoodId: 'mirante',
   },
   {
@@ -142,7 +142,7 @@ export const PROPERTIES: PropertyCardProps[] = [
     title: 'Apartamento no São José',
     price: 'R$ 205.000',
     location: 'São José, Campina Grande - PB',
-    beds: 1, baths: 1, area: 45, isFavorite: false, status: 'Disponível',
+    beds: 1, baths: 1, area: 45, isFavorite: false,
     lat: -7.2500, lng: -35.8850, neighborhoodId: 'sao-jose',
   },
 ]
