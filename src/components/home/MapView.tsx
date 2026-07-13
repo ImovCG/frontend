@@ -2,6 +2,7 @@ import L from 'leaflet'
 import { MapContainer, TileLayer, Marker } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import styles from '@/styles/home/MapView.module.css'
+import { parsePriceToNumber } from '@/lib/property'
 
 export interface MapMarker {
   lat: number
@@ -18,12 +19,15 @@ interface MapViewProps {
 const CENTER: [number, number] = [-7.2306, -35.8811]
 
 function formatPrice(raw: string): string {
-  const num = parseInt(raw.replace(/\D/g, ''), 10)
+  const num = parsePriceToNumber(raw) ?? 0
   if (num >= 1_000_000) {
     const m = num / 1_000_000
     return `R$ ${m % 1 === 0 ? m : m.toFixed(1)}M`
   }
-  return `R$ ${Math.round(num / 1000)}k`
+  if (num >= 1_000) {
+    return `R$ ${Math.round(num / 1000)}k`
+  }
+  return `R$ ${num}`
 }
 
 function createPriceIcon(price: string) {

@@ -1,4 +1,5 @@
-import { Bath, Bed, Heart, Maximize2 } from 'lucide-react'
+import { useState } from 'react'
+import { Bath, Bed, Heart, ImageOff, Maximize2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useFavorites } from '@/context/FavoritesContext'
 import PropertyActions from '@/components/home/PropertyActions'
@@ -42,11 +43,24 @@ export default function PropertyCard({
   const { isFav, toggle } = useFavorites()
   const favorite = isFav(id)
   const isFavorites = variant === 'favorites'
+  const [imageError, setImageError] = useState(false)
+  const showImage = Boolean(image) && !imageError
 
   return (
     <div className={cn(styles.card, isFavorites && styles.cardFavorites)} onClick={onClick}>
       <div className={styles.imageWrapper}>
-        <img src={image} alt={title} className={styles.image} />
+        {showImage ? (
+          <img
+            src={image}
+            alt={title}
+            className={styles.image}
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <div className={styles.imagePlaceholder}>
+            <ImageOff className={styles.imagePlaceholderIcon} />
+          </div>
+        )}
         <button
           className={cn(styles.favoriteBtn, isFavorites && styles.favoriteBtnFavorites)}
           onClick={(e) => { e.stopPropagation(); toggle(id) }}
