@@ -54,6 +54,7 @@ export default function PropertyCard({
           src={src}
           alt={title}
           className={styles.image}
+          referrerPolicy="no-referrer"
           onError={() => setImageError(true)}
         />
         <button

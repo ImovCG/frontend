@@ -36,7 +36,7 @@ export default function PropertyStrip({ properties, onCardClick }: PropertyStrip
       {properties.map((prop, i) => (
         <div key={prop.id} className={styles.card} onClick={() => onCardClick?.(i)}>
           <div className={styles.imageWrapper}>
-            <img src={prop.image} alt={prop.title} className={styles.image} />
+            <img src={prop.image} alt={prop.title} className={styles.image} referrerPolicy="no-referrer" />
             <span className={styles.price}>{prop.price}</span>
             <button
               className={styles.favoriteBtn}

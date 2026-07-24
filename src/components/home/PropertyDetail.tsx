@@ -18,7 +18,7 @@ export default function PropertyDetail({ property, onClose }: PropertyDetailProp
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.panel} onClick={(e) => e.stopPropagation()}>
         <div className={styles.imageWrapper}>
-          <img src={property.image} alt={property.title} className={styles.image} />
+          <img src={property.image} alt={property.title} className={styles.image} referrerPolicy="no-referrer" />
           <button className={styles.closeBtn} onClick={onClose} aria-label="Fechar">
             <X className={styles.closeIcon} />
           </button>
