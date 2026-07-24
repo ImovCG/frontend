@@ -42,7 +42,9 @@ export interface ImoveisFiltros {
   bairro?: string
   quartos?: number
   quartosMin?: number
+  banheirosMin?: number
   areaMin?: number
+  categoria?: string
   page?: number
   size?: number
   sort?: string

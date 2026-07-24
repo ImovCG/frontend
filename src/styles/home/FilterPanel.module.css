@@ -42,6 +42,42 @@
   @apply text-xs font-semibold uppercase tracking-wider text-white/50;
 }
 
+.labelRow {
+  @apply flex items-center justify-between;
+}
+
+.priceValue {
+  @apply text-sm font-semibold text-[#F5A623];
+}
+
+.slider {
+  @apply relative flex w-full touch-none select-none items-center py-2;
+}
+
+.sliderTrack {
+  @apply relative h-1.5 grow rounded-full bg-white/15;
+}
+
+.sliderRange {
+  @apply absolute h-full rounded-full bg-[#F5A623];
+}
+
+.sliderThumb {
+  @apply block h-4 w-4 cursor-grab rounded-full border-2 border-[#0D1B4B] bg-[#F5A623] shadow-md outline-none;
+}
+
+.sliderThumb:focus-visible {
+  @apply ring-2 ring-white/60;
+}
+
+.select {
+  @apply w-full cursor-pointer rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-medium text-white outline-none transition-colors hover:border-white/30;
+}
+
+.select option {
+  @apply bg-[#0D1B4B] text-white;
+}
+
 .optionRow {
   @apply flex flex-wrap gap-2;
 }

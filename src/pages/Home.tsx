@@ -4,7 +4,7 @@ import SearchArea, { type FilterChip } from '@/components/home/SearchArea'
 import MapView, { type MapMarker } from '@/components/home/MapView'
 import PropertyStrip from '@/components/home/PropertyStrip'
 import PropertyDetail from '@/components/home/PropertyDetail'
-import FilterPanel, { DEFAULT_FILTERS, type Filters } from '@/components/home/FilterPanel'
+import FilterPanel, { DEFAULT_FILTERS, PRICE_MAX, type Filters } from '@/components/home/FilterPanel'
 import { type PropertyCardProps } from '@/components/home/PropertyCard'
 import { useImoveis } from '@/hooks/useImoveis'
 import { slugify } from '@/lib/neighborhoodCoords'
@@ -35,18 +35,33 @@ export default function Home() {
   const apiFilters = useMemo<ImoveisFiltros>(() => {
     const next: ImoveisFiltros = { cidade: 'Campina Grande' }
 
+    // Chip de bairro (barra superior) tem precedência sobre o do painel.
     if (activeChipData) {
       next.bairro = activeChipData.label
+    } else if (filters.bairro) {
+      next.bairro = filters.bairro
     }
-    if (filters.maxPrice > 0) {
+    if (filters.minPrice > 0) {
+      next.precoMin = filters.minPrice
+    }
+    if (filters.maxPrice < PRICE_MAX) {
       next.precoMax = filters.maxPrice
     }
     if (filters.minBeds > 0) {
       next.quartosMin = filters.minBeds
     }
+    if (filters.minBaths > 0) {
+      next.banheirosMin = filters.minBaths
+    }
+    if (filters.minArea > 0) {
+      next.areaMin = filters.minArea
+    }
+    if (filters.categoria) {
+      next.categoria = filters.categoria
+    }
 
     return next
-  }, [activeChipData, filters.maxPrice, filters.minBeds])
+  }, [activeChipData, filters])
 
   const { properties, loading, error, refetch } = useImoveis(apiFilters)
 
