@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Bath, Bed, Heart, ImageOff, Maximize2 } from 'lucide-react'
+import { Bath, Bed, Heart, Maximize2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { PLACEHOLDER_IMAGE } from '@/lib/imovelMapper'
 import { useFavorites } from '@/context/FavoritesContext'
 import PropertyActions from '@/components/home/PropertyActions'
 import styles from '@/styles/home/PropertyCard.module.css'
@@ -44,23 +45,17 @@ export default function PropertyCard({
   const favorite = isFav(id)
   const isFavorites = variant === 'favorites'
   const [imageError, setImageError] = useState(false)
-  const showImage = Boolean(image) && !imageError
+  const src = imageError || !image ? PLACEHOLDER_IMAGE : image
 
   return (
     <div className={cn(styles.card, isFavorites && styles.cardFavorites)} onClick={onClick}>
       <div className={styles.imageWrapper}>
-        {showImage ? (
-          <img
-            src={image}
-            alt={title}
-            className={styles.image}
-            onError={() => setImageError(true)}
-          />
-        ) : (
-          <div className={styles.imagePlaceholder}>
-            <ImageOff className={styles.imagePlaceholderIcon} />
-          </div>
-        )}
+        <img
+          src={src}
+          alt={title}
+          className={styles.image}
+          onError={() => setImageError(true)}
+        />
         <button
           className={cn(styles.favoriteBtn, isFavorites && styles.favoriteBtnFavorites)}
           onClick={(e) => { e.stopPropagation(); toggle(id) }}

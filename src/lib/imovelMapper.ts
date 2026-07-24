@@ -2,7 +2,7 @@ import type { PropertyCardProps } from '@/components/home/PropertyCard'
 import type { ImovelGetDTO } from '@/types/imovel'
 import { resolveCoordinates, slugify } from '@/lib/neighborhoodCoords'
 
-const PLACEHOLDER_IMAGE = 'https://placehold.co/400x250/e2e8f0/64748b?text=Sem+foto'
+export const PLACEHOLDER_IMAGE = '/property-placeholder.svg'
 
 export function formatPrice(value: number): string {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })

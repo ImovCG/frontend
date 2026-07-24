@@ -1,0 +1,69 @@
+<svg width="400" height="225" viewBox="0 0 400 225" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sem foto disponível">
+  <rect width="400" height="225" fill="#ffffff"/>
+
+  <!-- paleta: azul #2f49c4 / navy contorno #16224e / amarelo #f4cf1f / vidro #bfe0ff / verde #7cb04c -->
+  <g stroke="#16224e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- Arbustos -->
+    <g fill="#7cb04c">
+      <circle cx="70" cy="176" r="15"/><circle cx="88" cy="180" r="13"/><circle cx="54" cy="182" r="11"/>
+      <circle cx="322" cy="178" r="14"/><circle cx="340" cy="176" r="15"/><circle cx="356" cy="182" r="11"/>
+    </g>
+    <g fill="#f4cf1f" stroke="none">
+      <circle cx="66" cy="172" r="2.4"/><circle cx="86" cy="178" r="2.4"/><circle cx="54" cy="184" r="2.4"/>
+      <circle cx="324" cy="174" r="2.4"/><circle cx="344" cy="180" r="2.4"/><circle cx="356" cy="184" r="2.4"/>
+    </g>
+
+    <!-- Corpo -->
+    <rect x="92" y="118" width="216" height="72" fill="#ffffff"/>
+    <!-- Base azul -->
+    <rect x="92" y="184" width="216" height="6" fill="#2f49c4"/>
+
+    <!-- Chaminé -->
+    <rect x="286" y="60" width="16" height="34" fill="#f0c53a"/>
+    <line x1="286" y1="72" x2="302" y2="72"/><line x1="294" y1="60" x2="294" y2="94"/>
+    <rect x="282" y="54" width="24" height="8" fill="#2f49c4"/>
+
+    <!-- Empena secundária (direita) -->
+    <path d="M248 120 L286 74 L324 120 Z" fill="#f4cf1f"/>
+    <path d="M242 124 L286 70 L330 124" fill="none" stroke="#2f49c4" stroke-width="11"/>
+    <rect x="278" y="90" width="16" height="26" rx="2" fill="#bfe0ff"/>
+    <line x1="278" y1="103" x2="294" y2="103"/>
+
+    <!-- Empena principal -->
+    <path d="M112 120 L196 46 L280 120 Z" fill="#f4cf1f"/>
+    <path d="M102 126 L196 40 L290 126" fill="none" stroke="#2f49c4" stroke-width="14"/>
+    <circle cx="196" cy="86" r="16" fill="#ffffff"/>
+    <line x1="196" y1="70" x2="196" y2="102"/><line x1="180" y1="86" x2="212" y2="86"/>
+
+    <!-- Janela esquerda + veneziana + floreira -->
+    <g>
+      <rect x="118" y="138" width="12" height="38" fill="#2f49c4"/>
+      <rect x="164" y="138" width="12" height="38" fill="#2f49c4"/>
+      <rect x="130" y="138" width="34" height="38" fill="#bfe0ff"/>
+      <line x1="147" y1="138" x2="147" y2="176"/><line x1="130" y1="157" x2="164" y2="157"/>
+      <rect x="126" y="172" width="42" height="12" fill="#f4cf1f"/>
+    </g>
+
+    <!-- Janela direita + veneziana + floreira -->
+    <g>
+      <rect x="224" y="138" width="12" height="38" fill="#2f49c4"/>
+      <rect x="270" y="138" width="12" height="38" fill="#2f49c4"/>
+      <rect x="236" y="138" width="34" height="38" fill="#bfe0ff"/>
+      <line x1="253" y1="138" x2="253" y2="176"/><line x1="236" y1="157" x2="270" y2="157"/>
+      <rect x="232" y="172" width="42" height="12" fill="#f4cf1f"/>
+    </g>
+
+    <!-- Pórtico + porta em arco + degraus -->
+    <path d="M178 120 L196 100 L214 120 Z" fill="#ffffff"/>
+    <rect x="180" y="118" width="32" height="72" fill="#ffffff"/>
+    <path d="M186 190 L186 142 Q186 128 196 128 Q206 128 206 142 L206 190 Z" fill="#2f49c4"/>
+    <circle cx="201" cy="162" r="2" fill="#e3c04a" stroke="none"/>
+    <rect x="172" y="184" width="48" height="6" fill="#ffffff"/>
+
+    <!-- Chão -->
+    <line x1="24" y1="190" x2="376" y2="190" stroke="#2f49c4" stroke-width="5"/>
+  </g>
+
+  <text x="200" y="212" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="13" font-weight="500" fill="#94a3b8" letter-spacing="0.3">Sem foto disponível</text>
+</svg>
