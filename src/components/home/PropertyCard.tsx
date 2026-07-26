@@ -23,6 +23,7 @@ export interface PropertyCardProps {
   sourceUrl?: string
   description?: string
   categoria?: string
+  fonte?: string
   onClick?: () => void
   variant?: 'default' | 'favorites'
 }
@@ -36,6 +37,7 @@ export default function PropertyCard({
   beds,
   baths,
   area,
+  fonte,
   tipoAnuncio,
   sourceUrl,
   onClick,

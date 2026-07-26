@@ -14,6 +14,7 @@ export interface Filters {
   minArea: number
   categoria: string
   bairro: string
+  fonte: string
 }
 
 export const DEFAULT_FILTERS: Filters = {
@@ -24,6 +25,7 @@ export const DEFAULT_FILTERS: Filters = {
   minArea: 0,
   categoria: '',
   bairro: '',
+  fonte: '',
 }
 
 interface FilterPanelProps {
@@ -185,6 +187,22 @@ export default function FilterPanel({ filters, onChange, onClose, onClear }: Fil
                   {b}
                 </option>
               ))}
+            </select>
+          </section>
+          <section className={styles.section}>
+            <p className={styles.label}>Fonte</p>
+            <select
+              className={styles.select}
+              value={filters.fonte}
+              onChange={(e) => set('fonte', e.target.value)}
+            >
+              <option value="">Todos as fontes</option>
+                <option value={'facebook'}>
+                  Facebook
+                </option>
+                <option value={'olx'}>
+                  Olx
+                </option>
             </select>
           </section>
         </div>

@@ -48,4 +48,5 @@ export interface ImoveisFiltros {
   page?: number
   size?: number
   sort?: string
+  fonte?: string
 }

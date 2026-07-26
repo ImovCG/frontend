@@ -44,5 +44,6 @@ export function mapImovelToProperty(imovel: ImovelGetDTO): PropertyCardProps {
     description: imovel.descricao ?? undefined,
     categoria: imovel.categoria ?? undefined,
     tipoAnuncio: imovel.tipoAnuncio ? formatTipoAnuncio(imovel.tipoAnuncio) : undefined,
+    fonte: imovel.fonte
   }
 }
