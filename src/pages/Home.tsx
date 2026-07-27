@@ -26,6 +26,7 @@ export default function Home() {
   const [chips, setChips] = useState<FilterChip[]>(INITIAL_NEIGHBORHOOD_CHIPS)
   const [activeChip, setActiveChip] = useState(ALL_CHIP_ID)
   const [selectedProperty, setSelectedProperty] = useState<PropertyCardProps | null>(null)
+  const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [isFilterOpen, setIsFilterOpen] = useState(false)
@@ -123,7 +124,7 @@ export default function Home() {
 
   return (
     <div className={styles.mapWrapper}>
-      <MapView markers={markers} onMarkerClick={handleSelect} />
+      <MapView markers={markers} activeIndex={activeCardIndex} onMarkerClick={handleSelect} />
       <div className={styles.filterOverlay}>
         <SearchArea
           chips={displayChips}
@@ -163,7 +164,7 @@ export default function Home() {
         ) : properties.length === 0 ? (
           <p className={styles.emptyMessage}>Nenhum imóvel encontrado com esses filtros.</p>
         ) : (
-          <PropertyStrip properties={properties} onCardClick={handleSelect} />
+          <PropertyStrip properties={properties} onCardClick={handleSelect} onActiveChange={setActiveCardIndex} />
         )}
       </div>
 
