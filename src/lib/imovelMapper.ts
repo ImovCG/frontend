@@ -24,9 +24,9 @@ function buildLocation(imovel: ImovelGetDTO): string {
   return `${cidade} - ${uf}`
 }
 
-export function mapImovelToProperty(imovel: ImovelGetDTO): PropertyCardProps {
+export async function mapImovelToProperty(imovel: ImovelGetDTO): Promise<PropertyCardProps> {
   const id = String(imovel.id)
-  const { lat, lng } = resolveCoordinates(imovel.bairro, id)
+  const { lat, lng } = await resolveCoordinates(imovel.bairro)
 
   return {
     id,

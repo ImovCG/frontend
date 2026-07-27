@@ -1,3 +1,5 @@
+import { geocodeBairro } from '@/lib/geocoding'
+
 const ACCENT_MAP: Record<string, string> = {
   á: 'a', à: 'a', â: 'a', ã: 'a', ä: 'a',
   é: 'e', è: 'e', ê: 'e', ë: 'e',
@@ -16,6 +18,8 @@ export function slugify(text: string): string {
   return plain.trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 }
 
+// Known-good centroids for the busiest bairros — served instantly, no network round trip.
+// Anything outside this list falls through to geocodeBairro (cached after first lookup).
 const NEIGHBORHOOD_COORDS: Record<string, { lat: number; lng: number }> = {
   universitario: { lat: -7.2190, lng: -35.8945 },
   bodocongo: { lat: -7.2430, lng: -35.9100 },
@@ -29,28 +33,20 @@ const NEIGHBORHOOD_COORDS: Record<string, { lat: number; lng: number }> = {
   'sao-jose': { lat: -7.2400, lng: -35.8750 },
 }
 
-const CAMPINA_GRANDE_CENTER = { lat: -7.2306, lng: -35.8811 }
+export const CAMPINA_GRANDE_CENTER = { lat: -7.2306, lng: -35.8811 }
 
-function hashJitter(seed: string): { lat: number; lng: number } {
-  let hash = 0
-  for (let i = 0; i < seed.length; i++) {
-    hash = (hash * 31 + seed.charCodeAt(i)) | 0
-  }
-  const latOffset = ((hash % 100) - 50) * 0.00015
-  const lngOffset = (((hash >> 8) % 100) - 50) * 0.00015
-  return { lat: latOffset, lng: lngOffset }
-}
-
-export function resolveCoordinates(
+// Resolves a bairro's midpoint: static table first, then a cached Nominatim lookup, falling
+// back to the city center only if the bairro is empty or the lookup fails outright.
+export async function resolveCoordinates(
   bairro: string | null | undefined,
-  id: string,
-): { lat: number; lng: number } {
-  const key = slugify(bairro ?? '')
-  const base = NEIGHBORHOOD_COORDS[key] ?? CAMPINA_GRANDE_CENTER
-  const jitter = hashJitter(id)
+): Promise<{ lat: number; lng: number }> {
+  const trimmed = bairro?.trim()
+  if (!trimmed) return CAMPINA_GRANDE_CENTER
 
-  return {
-    lat: base.lat + jitter.lat,
-    lng: base.lng + jitter.lng,
-  }
+  const key = slugify(trimmed)
+  const known = NEIGHBORHOOD_COORDS[key]
+  if (known) return known
+
+  const geocoded = await geocodeBairro(trimmed)
+  return geocoded ?? CAMPINA_GRANDE_CENTER
 }

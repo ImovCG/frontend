@@ -8,6 +8,7 @@ import FilterPanel, { DEFAULT_FILTERS, PRICE_MAX, type Filters } from '@/compone
 import { type PropertyCardProps } from '@/components/home/PropertyCard'
 import { useImoveis } from '@/hooks/useImoveis'
 import { slugify } from '@/lib/neighborhoodCoords'
+import { spreadOverlappingMarkers } from '@/lib/markerLayout'
 import { CAMPINA_GRANDE_NEIGHBORHOODS } from '@/data/neighborhoods'
 import type { ImoveisFiltros } from '@/types/imovel'
 import styles from '@/styles/pages/Home.module.css'
@@ -77,9 +78,15 @@ export default function Home() {
         ).slice(0, 6)
       : []
 
-  const markers: MapMarker[] = properties
-    .filter((p) => p.lat !== undefined && p.lng !== undefined)
-    .map((p, i) => ({ lat: p.lat!, lng: p.lng!, price: p.price, index: i }))
+  const markers: MapMarker[] = useMemo(() => {
+    const withCoords = properties
+      .map((p, index) => ({ id: p.id, lat: p.lat, lng: p.lng, price: p.price, index }))
+      .filter((p): p is { id: string; lat: number; lng: number; price: string; index: number } =>
+        p.lat !== undefined && p.lng !== undefined
+      )
+
+    return spreadOverlappingMarkers(withCoords)
+  }, [properties])
 
   function handleSelect(index: number) {
     setSelectedProperty(properties[index] ?? null)

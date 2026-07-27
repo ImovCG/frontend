@@ -32,7 +32,10 @@ export function useImoveis(filtros: ImoveisFiltros = {}): UseImoveisResult {
         const page = await listImoveis({ size: 200, ...filtros })
         if (cancelled) return
 
-        setProperties(page.content.map(mapImovelToProperty))
+        const mapped = await Promise.all(page.content.map(mapImovelToProperty))
+        if (cancelled) return
+
+        setProperties(mapped)
         setTotalElements(page.totalElements)
       } catch (err) {
         if (cancelled) return

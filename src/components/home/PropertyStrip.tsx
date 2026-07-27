@@ -49,6 +49,9 @@ export default function PropertyStrip({ properties, onCardClick }: PropertyStrip
           <div className={styles.body}>
             <p className={styles.title}>{prop.title}</p>
             <p className={styles.location}>{prop.location}</p>
+            {prop.description && (
+              <p className={styles.description}>{prop.description}</p>
+            )}
             <div className={styles.specs}>
               <span className={styles.spec}><Bed className={styles.specIcon} />{prop.beds}</span>
               <span className={styles.spec}><Bath className={styles.specIcon} />{prop.baths}</span>
