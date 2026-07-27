@@ -9,15 +9,14 @@ import styles from '@/styles/home/PropertyStrip.module.css'
 interface PropertyStripProps {
   properties: PropertyCardProps[]
   onCardClick?: (index: number) => void
-  onActiveChange?: (index: number) => void
+  onHover?: (index: number | null) => void
 }
 
-export default function PropertyStrip({ properties, onCardClick, onActiveChange }: PropertyStripProps) {
+export default function PropertyStrip({ properties, onCardClick, onHover }: PropertyStripProps) {
   const { isFav, toggle } = useFavorites()
   const stripRef = useRef<HTMLDivElement>(null)
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  
+
   useEffect(() => {
     const el = stripRef.current
     if (!el) return
@@ -32,46 +31,15 @@ export default function PropertyStrip({ properties, onCardClick, onActiveChange 
     return () => el.removeEventListener('wheel', handleWheel)
   }, [])
 
-
-  useEffect(() => {
-    const root = stripRef.current
-    if (!root || !onActiveChange) return
-
-    let bestRatio = 0
-    let bestIndex = -1
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const indexAttr = (entry.target as HTMLElement).dataset.index
-          if (indexAttr == null) continue
-          const index = Number(indexAttr)
-
-          if (entry.isIntersecting && entry.intersectionRatio >= bestRatio) {
-            bestRatio = entry.intersectionRatio
-            bestIndex = index
-          } else if (bestIndex === index && !entry.isIntersecting) {
-            bestRatio = 0
-          }
-        }
-        if (bestIndex >= 0) onActiveChange(bestIndex)
-      },
-      { root, threshold: [0.3, 0.6, 0.9] }
-    )
-
-    cardRefs.current.forEach((card) => card && observer.observe(card))
-    return () => observer.disconnect()
-  }, [properties, onActiveChange])
-
   return (
     <div ref={stripRef} className={styles.strip}>
       {properties.map((prop, i) => (
         <div
           key={prop.id}
-          ref={(el) => { cardRefs.current[i] = el }}
-          data-index={i}
           className={styles.card}
           onClick={() => onCardClick?.(i)}
+          onMouseEnter={() => onHover?.(i)}
+          onMouseLeave={() => onHover?.(null)}
         >
           <div className={styles.imageWrapper}>
             <img src={prop.image} alt={prop.title} className={styles.image} referrerPolicy="no-referrer" />

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Bell, Heart, Home, Info } from 'lucide-react'
+import { Heart, Home, Info } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import HowItWorksModal from '@/components/layout/HowItWorksModal'
 import styles from '@/styles/layout/Header.module.css'
@@ -8,7 +8,6 @@ import styles from '@/styles/layout/Header.module.css'
 const NAV_LINKS = [
   { to: '/', label: 'Início', icon: Home, end: true },
   { to: '/favoritos', label: 'Favoritos', icon: Heart },
-  { to: '/alertas', label: 'Alertas', icon: Bell },
 ]
 
 export default function Header() {

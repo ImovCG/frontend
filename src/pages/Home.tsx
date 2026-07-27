@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import { SlidersHorizontal } from 'lucide-react'
 import SearchArea, { type FilterChip } from '@/components/home/SearchArea'
 import MapView, { type MapMarker } from '@/components/home/MapView'
 import PropertyStrip from '@/components/home/PropertyStrip'
@@ -145,15 +144,6 @@ export default function Home() {
         />
       </div>
 
-      <button
-        className={styles.filtersFab}
-        onClick={() => setIsFilterOpen(true)}
-        aria-label="Abrir filtros"
-      >
-        <SlidersHorizontal className={styles.filtersFabIcon} />
-        Filtros
-      </button>
-
       <div className={styles.cardStrip}>
         {loading ? (
           <p className={styles.emptyMessage}>Carregando imóveis...</p>
@@ -167,14 +157,14 @@ export default function Home() {
         ) : properties.length === 0 ? (
           <p className={styles.emptyMessage}>Nenhum imóvel encontrado com esses filtros.</p>
         ) : (
-          <PropertyStrip properties={properties} onCardClick={handleSelect} onActiveChange={setActiveCardIndex} />
+          <PropertyStrip properties={properties} onCardClick={handleSelect} onHover={setActiveCardIndex} />
         )}
       </div>
 
       {selectedProperty && (
         <PropertyDetail
           property={selectedProperty}
-          onClose={() => setSelectedProperty(null)}
+          onClose={() => { setSelectedProperty(null); setActiveCardIndex(null) }}
         />
       )}
 
