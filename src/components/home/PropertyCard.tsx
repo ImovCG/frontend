@@ -40,6 +40,7 @@ export default function PropertyCard({
   fonte,
   tipoAnuncio,
   sourceUrl,
+  description,
   onClick,
   variant = 'default',
 }: PropertyCardProps) {
@@ -71,6 +72,11 @@ export default function PropertyCard({
         <p className={cn(styles.price, isFavorites && styles.priceFavorites)}>{price}</p>
         <h3 className={cn(styles.title, isFavorites && styles.titleFavorites)}>{title}</h3>
         <p className={cn(styles.location, isFavorites && styles.locationFavorites)}>{location}</p>
+        {description && (
+          <p className={cn(styles.description, isFavorites && styles.descriptionFavorites)}>
+            {description}
+          </p>
+        )}
         <div className={cn(styles.specs, isFavorites && styles.specsFavorites)}>
           <span className={styles.specItem}><Bed className={styles.specIcon} />{beds}</span>
           <span className={styles.specItem}><Bath className={styles.specIcon} />{baths}</span>

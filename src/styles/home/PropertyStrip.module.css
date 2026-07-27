@@ -53,6 +53,10 @@
   @apply mt-0.5 line-clamp-1 text-[10px] text-white/50;
 }
 
+.description {
+  @apply mt-1 line-clamp-2 text-[10px] text-white/40;
+}
+
 .specs {
   @apply mt-2 flex gap-3 text-[10px] text-white/60;
 }

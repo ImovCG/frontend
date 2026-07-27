@@ -31,3 +31,48 @@ export async function geocodeAddress(address: string): Promise<GeocodeResult | n
 
   return { lat: parseFloat(first.lat), lng: parseFloat(first.lon) }
 }
+
+const BAIRRO_CACHE_KEY = 'imovcg:bairro-geocode-cache:v1'
+
+function readBairroCache(): Record<string, GeocodeResult | null> {
+  try {
+    const raw = localStorage.getItem(BAIRRO_CACHE_KEY)
+    return raw ? (JSON.parse(raw) as Record<string, GeocodeResult | null>) : {}
+  } catch {
+    return {}
+  }
+}
+
+function writeBairroCache(cache: Record<string, GeocodeResult | null>): void {
+  try {
+    localStorage.setItem(BAIRRO_CACHE_KEY, JSON.stringify(cache))
+  } catch {
+    
+  }
+}
+
+const inFlight = new Map<string, Promise<GeocodeResult | null>>()
+
+export async function geocodeBairro(bairro: string): Promise<GeocodeResult | null> {
+  const key = bairro.trim().toLowerCase()
+  if (!key) return null
+
+  const cache = readBairroCache()
+  if (key in cache) return cache[key]
+
+  const pending = inFlight.get(key)
+  if (pending) return pending
+
+  const request = geocodeAddress(bairro)
+    .catch(() => null)
+    .then((result) => {
+      const latest = readBairroCache()
+      latest[key] = result
+      writeBairroCache(latest)
+      inFlight.delete(key)
+      return result
+    })
+
+  inFlight.set(key, request)
+  return request
+}

@@ -40,6 +40,14 @@
   @apply mt-0.5 text-xs text-muted-foreground;
 }
 
+.description {
+  @apply mt-1.5 line-clamp-2 text-xs text-muted-foreground/80;
+}
+
+.descriptionFavorites {
+  @apply text-white/45;
+}
+
 .specs {
   @apply mt-3 flex gap-4 text-xs text-muted-foreground;
 }

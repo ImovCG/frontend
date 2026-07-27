@@ -1,5 +1,6 @@
+import { useEffect } from 'react'
 import L from 'leaflet'
-import { MapContainer, TileLayer, Marker } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import styles from '@/styles/home/MapView.module.css'
 import { parsePriceToNumber } from '@/lib/property'
@@ -13,6 +14,7 @@ export interface MapMarker {
 
 interface MapViewProps {
   markers?: MapMarker[]
+  activeIndex?: number | null
   onMarkerClick?: (index: number) => void
 }
 
@@ -30,11 +32,13 @@ function formatPrice(raw: string): string {
   return `R$ ${num}`
 }
 
-function createPriceIcon(price: string) {
+function createPriceIcon(price: string, isActive: boolean) {
   const label = formatPrice(price)
+  const background = isActive ? '#EA580C' : '#141414'
+  const scale = isActive ? 1.15 : 1
   return L.divIcon({
     html: `<div style="
-      background:#141414;
+      background:${background};
       color:#fff;
       font-size:14px;
       font-weight:600;
@@ -44,6 +48,9 @@ function createPriceIcon(price: string) {
       box-shadow:0 2px 10px rgba(0,0,0,0.45);
       cursor:pointer;
       user-select:none;
+      transform:scale(${scale});
+      transition:transform 0.15s ease, background 0.15s ease;
+      z-index:${isActive ? 1000 : 0};
     ">${label}</div>`,
     className: '',
     iconSize: undefined,
@@ -51,7 +58,21 @@ function createPriceIcon(price: string) {
   })
 }
 
-export default function MapView({ markers = [], onMarkerClick }: MapViewProps) {
+function FlyToActive({ position }: { position: [number, number] | null }) {
+  const map = useMap()
+
+  useEffect(() => {
+    if (!position) return
+    map.flyTo(position, Math.max(map.getZoom(), 15), { duration: 0.6 })
+  }, [position, map])
+
+  return null
+}
+
+export default function MapView({ markers = [], activeIndex = null, onMarkerClick }: MapViewProps) {
+  const activeMarker = activeIndex != null ? markers.find((m) => m.index === activeIndex) : undefined
+  const activePosition: [number, number] | null = activeMarker ? [activeMarker.lat, activeMarker.lng] : null
+
   return (
     <div className={styles.wrapper}>
       <MapContainer
@@ -68,10 +89,11 @@ export default function MapView({ markers = [], onMarkerClick }: MapViewProps) {
           <Marker
             key={i}
             position={[m.lat, m.lng]}
-            icon={createPriceIcon(m.price)}
+            icon={createPriceIcon(m.price, m.index === activeIndex)}
             eventHandlers={{ click: () => onMarkerClick?.(m.index) }}
           />
         ))}
+        <FlyToActive position={activePosition} />
       </MapContainer>
     </div>
   )
