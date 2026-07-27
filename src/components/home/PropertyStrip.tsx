@@ -38,6 +38,13 @@ export default function PropertyStrip({ properties, onCardClick }: PropertyStrip
           <div className={styles.imageWrapper}>
             <img src={prop.image} alt={prop.title} className={styles.image} referrerPolicy="no-referrer" />
             <span className={styles.price}>{prop.price}</span>
+            {prop.fonte && (prop.fonte.toLowerCase() === 'olx' || prop.fonte.toLowerCase() === 'facebook') && (
+              <img 
+                src={prop.fonte.toLowerCase() === 'olx' ? '/olx.svg' : '/fb.svg'} 
+                alt={prop.fonte}
+                className={styles.fonteIcon}
+              />
+            )}
             <button
               className={styles.favoriteBtn}
               onClick={(e) => { e.stopPropagation(); toggle(prop.id) }}

@@ -16,6 +16,8 @@ function buildQuery(filtros: ImoveisFiltros): string {
   if (filtros.page != null) params.set('page', String(filtros.page))
   if (filtros.size != null) params.set('size', String(filtros.size))
   if (filtros.sort) params.set('sort', filtros.sort)
+  if (filtros.fonte) params.set('fonte', filtros.fonte)
+
 
   const query = params.toString()
   return query ? `?${query}` : ''
