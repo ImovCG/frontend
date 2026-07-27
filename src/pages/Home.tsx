@@ -59,6 +59,9 @@ export default function Home() {
     if (filters.categoria) {
       next.categoria = filters.categoria
     }
+    if (filters.fonte) {
+      next.fonte = filters.fonte
+    }
 
     return next
   }, [activeChipData, filters])
