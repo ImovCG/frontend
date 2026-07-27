@@ -37,7 +37,6 @@ export default function PropertyCard({
   beds,
   baths,
   area,
-  fonte,
   tipoAnuncio,
   sourceUrl,
   description,
