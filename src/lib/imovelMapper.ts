@@ -26,7 +26,11 @@ function buildLocation(imovel: ImovelGetDTO): string {
 
 export async function mapImovelToProperty(imovel: ImovelGetDTO): Promise<PropertyCardProps> {
   const id = String(imovel.id)
-  const { lat, lng } = await resolveCoordinates(imovel.bairro)
+  const fallbackCoords = imovel.latitude == null || imovel.longitude == null
+    ? await resolveCoordinates(imovel.bairro)
+    : null
+  const lat = imovel.latitude ?? fallbackCoords?.lat ?? 0
+  const lng = imovel.longitude ?? fallbackCoords?.lng ?? 0
 
   return {
     id,

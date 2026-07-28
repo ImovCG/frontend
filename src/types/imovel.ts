@@ -11,6 +11,8 @@ export interface ImovelGetDTO {
   categoria: string | null
   cidade: string | null
   bairro: string | null
+  latitude: number | null
+  longitude: number | null
   quartos: number | null
   banheiros: number | null
   areaM2: number | null
