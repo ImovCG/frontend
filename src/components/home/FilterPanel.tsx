@@ -1,6 +1,14 @@
 import { X } from 'lucide-react'
 import { Slider } from 'radix-ui'
 import { CAMPINA_GRANDE_NEIGHBORHOODS } from '@/data/neighborhoods'
+import {
+  CAMPUSES,
+  DEFAULT_RADIUS_KM,
+  RADIUS_MAX_KM,
+  RADIUS_MIN_KM,
+  RADIUS_STEP_KM,
+  formatRadius,
+} from '@/lib/campuses'
 import styles from '@/styles/home/FilterPanel.module.css'
 
 export const PRICE_MAX = 5000
@@ -15,6 +23,9 @@ export interface Filters {
   categoria: string
   bairro: string
   fonte: string
+  /** id do campus de referência ('' = filtro de distância desligado). */
+  campusId: string
+  radiusKm: number
 }
 
 export const DEFAULT_FILTERS: Filters = {
@@ -26,6 +37,8 @@ export const DEFAULT_FILTERS: Filters = {
   categoria: '',
   bairro: '',
   fonte: '',
+  campusId: '',
+  radiusKm: DEFAULT_RADIUS_KM,
 }
 
 interface FilterPanelProps {
@@ -92,6 +105,54 @@ export default function FilterPanel({ filters, onChange, onClose, onClear }: Fil
         </div>
 
         <div className={styles.body}>
+          <section className={styles.section}>
+            <p className={styles.label}>Perto da universidade</p>
+            <div className={styles.optionRow}>
+              <button
+                onClick={() => onChange({ ...filters, campusId: '' })}
+                className={filters.campusId === '' ? styles.optionActive : styles.option}
+              >
+                Qualquer
+              </button>
+              {CAMPUSES.map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => set('campusId', c.id)}
+                  className={filters.campusId === c.id ? styles.optionActive : styles.option}
+                  title={c.endereco}
+                >
+                  {c.sigla}
+                </button>
+              ))}
+            </div>
+
+            {filters.campusId !== '' && (
+              <>
+                <div className={styles.labelRow}>
+                  <p className={styles.label}>Raio</p>
+                  <span className={styles.priceValue}>{formatRadius(filters.radiusKm)}</span>
+                </div>
+                <Slider.Root
+                  className={styles.slider}
+                  min={RADIUS_MIN_KM}
+                  max={RADIUS_MAX_KM}
+                  step={RADIUS_STEP_KM}
+                  value={[filters.radiusKm]}
+                  onValueChange={([km]) => set('radiusKm', km)}
+                >
+                  <Slider.Track className={styles.sliderTrack}>
+                    <Slider.Range className={styles.sliderRange} />
+                  </Slider.Track>
+                  <Slider.Thumb className={styles.sliderThumb} aria-label="Raio de distância" />
+                </Slider.Root>
+                <p className={styles.hint}>
+                  Distância medida até o centro do bairro do imóvel — os anúncios não trazem
+                  endereço exato, então a precisão é por bairro.
+                </p>
+              </>
+            )}
+          </section>
+
           <section className={styles.section}>
             <div className={styles.labelRow}>
               <p className={styles.label}>Preço</p>

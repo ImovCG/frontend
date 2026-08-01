@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { Slider } from 'radix-ui'
 import SearchArea, { type FilterChip } from '@/components/home/SearchArea'
 import MapView, { type MapMarker } from '@/components/home/MapView'
 import PropertyStrip from '@/components/home/PropertyStrip'
@@ -8,6 +9,14 @@ import { type PropertyCardProps } from '@/components/home/PropertyCard'
 import { useImoveis } from '@/hooks/useImoveis'
 import { slugify } from '@/lib/neighborhoodCoords'
 import { spreadOverlappingMarkers } from '@/lib/markerLayout'
+import {
+  getCampus,
+  haversineKm,
+  formatRadius,
+  RADIUS_MIN_KM,
+  RADIUS_MAX_KM,
+  RADIUS_STEP_KM,
+} from '@/lib/campuses'
 import { CAMPINA_GRANDE_NEIGHBORHOODS } from '@/data/neighborhoods'
 import type { ImoveisFiltros } from '@/types/imovel'
 import styles from '@/styles/pages/Home.module.css'
@@ -67,7 +76,21 @@ export default function Home() {
     return next
   }, [activeChipData, filters])
 
-  const { properties, loading, error, refetch } = useImoveis(apiFilters)
+  const { properties: allProperties, loading, error, refetch } = useImoveis(apiFilters)
+
+  const activeCampus = getCampus(filters.campusId)
+
+  // Filtro de distância: aplicado no cliente, porque os imóveis não têm coordenada
+  // própria — a posição usada é o centro do bairro (ver lib/neighborhoodCoords).
+  const properties = useMemo(() => {
+    if (!activeCampus) return allProperties
+    return allProperties.filter(
+      (p) =>
+        p.lat !== undefined &&
+        p.lng !== undefined &&
+        haversineKm(activeCampus, { lat: p.lat, lng: p.lng }) <= filters.radiusKm,
+    )
+  }, [allProperties, activeCampus, filters.radiusKm])
 
   const displayChips: FilterChip[] = [
     { id: ALL_CHIP_ID, label: 'Todos' },
@@ -120,13 +143,27 @@ export default function Home() {
     selectSearchedNeighborhood(query)
   }
 
+  /** Clique no pino do campus: liga o raio, ou desliga se já estava selecionado. */
+  function handleCampusClick(id: string) {
+    setFilters((prev) => ({ ...prev, campusId: prev.campusId === id ? '' : id }))
+    setSelectedProperty(null)
+    setActiveCardIndex(null)
+  }
+
   function handleSuggestionSelect(neighborhood: string) {
     selectSearchedNeighborhood(neighborhood)
   }
 
   return (
     <div className={styles.mapWrapper}>
-      <MapView markers={markers} activeIndex={activeCardIndex} onMarkerClick={handleSelect} />
+      <MapView
+        markers={markers}
+        activeIndex={activeCardIndex}
+        onMarkerClick={handleSelect}
+        campusId={filters.campusId}
+        radiusKm={filters.radiusKm}
+        onCampusClick={handleCampusClick}
+      />
       <div className={styles.filterOverlay}>
         <SearchArea
           chips={displayChips}
@@ -142,6 +179,44 @@ export default function Home() {
           onFilterClick={() => setIsFilterOpen(true)}
           onChipClick={handleChipClick}
         />
+
+        {activeCampus && (
+          <div className={styles.campusBanner}>
+            <div className={styles.campusText}>
+              <span>
+                <strong>{properties.length}</strong>{' '}
+                {properties.length === 1 ? 'imóvel' : 'imóveis'} até{' '}
+                <strong>{formatRadius(filters.radiusKm)}</strong> da {activeCampus.sigla}
+              </span>
+              <span className={styles.campusSub}>{activeCampus.nome}</span>
+            </div>
+
+            <div className={styles.campusSlider}>
+              <span className={styles.campusRadiusLabel}>{formatRadius(RADIUS_MIN_KM)}</span>
+              <Slider.Root
+                className={styles.slider}
+                min={RADIUS_MIN_KM}
+                max={RADIUS_MAX_KM}
+                step={RADIUS_STEP_KM}
+                value={[filters.radiusKm]}
+                onValueChange={([km]) => setFilters((prev) => ({ ...prev, radiusKm: km }))}
+              >
+                <Slider.Track className={styles.sliderTrack}>
+                  <Slider.Range className={styles.sliderRange} />
+                </Slider.Track>
+                <Slider.Thumb className={styles.sliderThumb} aria-label="Raio de distância" />
+              </Slider.Root>
+              <span className={styles.campusRadiusLabel}>{formatRadius(RADIUS_MAX_KM)}</span>
+            </div>
+
+            <button
+              className={styles.campusClear}
+              onClick={() => setFilters((prev) => ({ ...prev, campusId: '' }))}
+            >
+              Limpar
+            </button>
+          </div>
+        )}
       </div>
 
       <div className={styles.cardStrip}>

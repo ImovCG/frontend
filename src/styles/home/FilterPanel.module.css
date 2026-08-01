@@ -90,6 +90,10 @@
   @apply cursor-pointer rounded-xl border border-[#F5A623] bg-[#F5A623]/15 px-4 py-2 text-sm font-semibold text-[#F5A623];
 }
 
+.hint {
+  @apply text-xs leading-relaxed text-white/40;
+}
+
 .footer {
   @apply flex gap-3 border-t border-white/10 px-5 py-4;
 }
