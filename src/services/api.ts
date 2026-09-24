@@ -1,5 +1,24 @@
 const API_BASE = import.meta.env.VITE_API_URL ?? ''
 
+const TOKEN_KEY = 'imovcg-token'
+
+export function getToken(): string | null {
+  try {
+    return localStorage.getItem(TOKEN_KEY)
+  } catch {
+    return null
+  }
+}
+
+export function setToken(token: string | null) {
+  try {
+    if (token) localStorage.setItem(TOKEN_KEY, token)
+    else localStorage.removeItem(TOKEN_KEY)
+  } catch {
+    // navegador sem storage: a sessao vale so enquanto a pagina estiver aberta
+  }
+}
+
 export class ApiError extends Error {
   readonly status: number
 
@@ -11,12 +30,15 @@ export class ApiError extends Error {
 }
 
 export async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
+  const token = getToken()
+
   const response = await fetch(`${API_BASE}${path}`, {
+    ...init,
     headers: {
       Accept: 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...init?.headers,
     },
-    ...init,
   })
 
   if (!response.ok) {

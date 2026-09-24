@@ -1,6 +1,7 @@
-import { Bath, Bed, Heart, MapPin, Maximize2, X } from 'lucide-react'
+import { Bath, Bed, Heart, MapPin, Maximize2, MessageCircle, X } from 'lucide-react'
 import { type PropertyCardProps } from '@/components/home/PropertyCard'
 import { useFavorites } from '@/context/FavoritesContext'
+import { ehAnuncioProprio, formatarTelefone, linkWhatsApp } from '@/lib/contato'
 import { FALLBACK_SOURCE_URL } from '@/lib/property'
 import { cn } from '@/lib/utils'
 import styles from '@/styles/home/PropertyDetail.module.css'
@@ -13,6 +14,10 @@ interface PropertyDetailProps {
 export default function PropertyDetail({ property, onClose }: PropertyDetailProps) {
   const { isFav, toggle } = useFavorites()
   const favorite = isFav(property.id)
+
+  const proprio = ehAnuncioProprio(property.fonte)
+  const whatsapp = proprio ? linkWhatsApp(property.anuncianteTelefone, property.title) : null
+  const telefone = formatarTelefone(property.anuncianteTelefone)
 
   return (
     <div className={styles.overlay} onClick={onClose}>
@@ -66,13 +71,36 @@ export default function PropertyDetail({ property, onClose }: PropertyDetailProp
             </p>
           </div>
 
+          {proprio && (
+            <div className={styles.contatoBox}>
+              <h3 className={styles.sectionLabel}>Anunciado no imovCG</h3>
+              <p className={styles.contatoNome}>{property.anuncianteNome ?? 'Anunciante'}</p>
+              <p className={styles.contatoTelefone}>
+                {telefone ?? 'Contato ainda não informado pelo anunciante.'}
+              </p>
+            </div>
+          )}
+
           <div className={styles.actions}>
-            <button
-              className={styles.btnView}
-              onClick={() => window.open(property.sourceUrl || FALLBACK_SOURCE_URL, '_blank', 'noopener,noreferrer')}
-            >
-              Ver anúncio
-            </button>
+            {proprio ? (
+              <button
+                className={styles.btnContact}
+                disabled={!whatsapp}
+                onClick={() => {
+                  if (whatsapp) window.open(whatsapp, '_blank', 'noopener,noreferrer')
+                }}
+              >
+                <MessageCircle className={styles.btnIcon} />
+                {whatsapp ? 'Falar no WhatsApp' : 'Contato indisponível'}
+              </button>
+            ) : (
+              <button
+                className={styles.btnView}
+                onClick={() => window.open(property.sourceUrl || FALLBACK_SOURCE_URL, '_blank', 'noopener,noreferrer')}
+              >
+                Ver anúncio
+              </button>
+            )}
             <button
               className={cn(styles.btnFavorite, favorite && styles.btnFavoriteActive)}
               onClick={() => toggle(property.id)}

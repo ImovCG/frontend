@@ -74,6 +74,10 @@ export default function PropertyStrip({ properties, onCardClick, onHover }: Prop
               <PropertyActions
                 tipoAnuncio={prop.tipoAnuncio}
                 sourceUrl={prop.sourceUrl}
+                fonte={prop.fonte}
+                titulo={prop.title}
+                anuncianteNome={prop.anuncianteNome}
+                anuncianteTelefone={prop.anuncianteTelefone}
                 viewClassName={styles.viewBtn}
                 badgeClassName={styles.statusBtn}
               />

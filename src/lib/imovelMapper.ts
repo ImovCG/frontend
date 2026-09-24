@@ -48,6 +48,8 @@ export async function mapImovelToProperty(imovel: ImovelGetDTO): Promise<Propert
     description: imovel.descricao ?? undefined,
     categoria: imovel.categoria ?? undefined,
     tipoAnuncio: imovel.tipoAnuncio ? formatTipoAnuncio(imovel.tipoAnuncio) : undefined,
-    fonte: imovel.fonte
+    fonte: imovel.fonte,
+    anuncianteNome: imovel.anuncianteNome ?? undefined,
+    anuncianteTelefone: imovel.anuncianteTelefone ?? undefined,
   }
 }

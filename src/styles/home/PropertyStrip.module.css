@@ -74,7 +74,7 @@
 }
 
 .viewBtn {
-  @apply flex-1 cursor-pointer rounded-md bg-white px-2 py-1 text-[10px] font-semibold text-[#0D1B4B] transition-colors hover:opacity-90;
+  @apply flex flex-1 cursor-pointer items-center justify-center gap-1 rounded-md bg-white px-2 py-1 text-[10px] font-semibold text-[#0D1B4B] transition-colors hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50;
 }
 
 .statusBtn {

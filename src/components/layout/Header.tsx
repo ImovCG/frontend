@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Heart, Home, Info } from 'lucide-react'
+import { Heart, Home, Info, Store } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/context/AuthContext'
 import HowItWorksModal from '@/components/layout/HowItWorksModal'
 import styles from '@/styles/layout/Header.module.css'
 
@@ -12,6 +13,7 @@ const NAV_LINKS = [
 
 export default function Header() {
   const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false)
+  const { anunciante } = useAuth()
 
   return (
     <header className={styles.header}>
@@ -30,7 +32,7 @@ export default function Header() {
               }
             >
               <Icon className={styles.navIcon} />
-              {label}
+              <span className={styles.navRotulo}>{label}</span>
             </NavLink>
           ))}
           <button
@@ -38,8 +40,17 @@ export default function Header() {
             onClick={() => setIsHowItWorksOpen(true)}
           >
             <Info className={styles.navIcon} />
-            Como funciona
+            <span className={styles.navRotulo}>Como funciona</span>
           </button>
+          <NavLink
+            to={anunciante ? '/anunciar' : '/entrar'}
+            className={({ isActive }) =>
+              isActive ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink
+            }
+          >
+            <Store className={styles.navIcon} />
+            <span className={styles.navRotulo}>{anunciante ? 'Meus anúncios' : 'Anunciar'}</span>
+          </NavLink>
         </nav>
       </div>
 

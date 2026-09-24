@@ -1,0 +1,93 @@
+@reference "../../index.css";
+
+.page {
+  @apply mx-auto w-full max-w-3xl px-4 py-8;
+}
+
+.estado {
+  @apply p-8 text-center text-sm text-muted-foreground;
+}
+
+.voltar {
+  @apply inline-flex items-center gap-1.5 text-sm text-muted-foreground no-underline transition-colors hover:text-foreground;
+}
+
+.title {
+  @apply mt-3 text-2xl font-semibold text-foreground;
+}
+
+.form {
+  @apply mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2;
+}
+
+.campo {
+  @apply flex flex-col gap-1.5;
+}
+
+.campoLargo {
+  @apply flex flex-col gap-1.5 sm:col-span-2;
+}
+
+.rotulo {
+  @apply text-sm font-medium text-foreground;
+}
+
+.input {
+  @apply h-10 w-full rounded-lg border bg-background px-3 text-sm text-foreground outline-none transition-colors focus:border-ring focus:ring-2 focus:ring-ring/30;
+}
+
+.textarea {
+  @apply w-full resize-y rounded-lg border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors focus:border-ring focus:ring-2 focus:ring-ring/30;
+}
+
+.ajuda {
+  @apply text-xs leading-relaxed text-muted-foreground;
+}
+
+.fotoEntrada {
+  @apply flex items-center gap-2;
+}
+
+.addFoto {
+  @apply inline-flex h-10 shrink-0 cursor-pointer items-center gap-1.5 rounded-lg border px-3 text-sm font-medium text-foreground transition-colors hover:bg-muted;
+}
+
+.galeria {
+  @apply mt-3 flex list-none flex-wrap gap-3 p-0;
+}
+
+.fotoItem {
+  @apply relative h-20 w-28 overflow-hidden rounded-lg border bg-muted;
+}
+
+.fotoPreview {
+  @apply h-full w-full object-cover;
+}
+
+.fotoQuebrada {
+  @apply flex h-full w-full items-center p-2 text-center text-[10px] leading-tight text-destructive;
+}
+
+.removerFoto {
+  @apply absolute right-1 top-1 cursor-pointer rounded-full bg-background/80 p-1 text-foreground backdrop-blur-sm;
+}
+
+.iconeBotao {
+  @apply h-4 w-4;
+}
+
+.erro {
+  @apply rounded-lg bg-destructive/10 px-3 py-2 text-sm text-destructive sm:col-span-2;
+}
+
+.acoes {
+  @apply flex items-center justify-end gap-3 border-t pt-5 sm:col-span-2;
+}
+
+.cancelar {
+  @apply cursor-pointer rounded-lg border px-4 py-2 text-sm font-medium text-muted-foreground no-underline transition-colors hover:bg-muted;
+}
+
+.salvar {
+  @apply cursor-pointer rounded-lg bg-[#0D1B4B] px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#152667] disabled:opacity-60;
+}

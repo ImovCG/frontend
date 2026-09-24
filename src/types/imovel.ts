@@ -22,6 +22,8 @@ export interface ImovelGetDTO {
   dataColeta: string
   descricao: string | null
   fotos: string[]
+  anuncianteNome: string | null
+  anuncianteTelefone: string | null
   createdAt: string
   updatedAt: string
 }

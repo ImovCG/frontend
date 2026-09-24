@@ -17,11 +17,16 @@
 }
 
 .nav {
-  @apply flex items-center gap-6;
+  @apply flex items-center gap-3 sm:gap-6;
 }
 
 .navLink {
   @apply flex cursor-pointer items-center gap-1.5 text-sm text-white/80 transition-colors hover:text-white no-underline;
+}
+
+/* Abaixo de sm so os icones cabem na barra. */
+.navRotulo {
+  @apply hidden sm:inline;
 }
 
 .navLinkActive {

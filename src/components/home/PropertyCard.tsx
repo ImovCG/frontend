@@ -24,6 +24,8 @@ export interface PropertyCardProps {
   description?: string
   categoria?: string
   fonte?: string
+  anuncianteNome?: string
+  anuncianteTelefone?: string
   onClick?: () => void
   variant?: 'default' | 'favorites'
 }
@@ -40,6 +42,9 @@ export default function PropertyCard({
   tipoAnuncio,
   sourceUrl,
   description,
+  fonte,
+  anuncianteNome,
+  anuncianteTelefone,
   onClick,
   variant = 'default',
 }: PropertyCardProps) {
@@ -85,6 +90,10 @@ export default function PropertyCard({
           <PropertyActions
             tipoAnuncio={tipoAnuncio}
             sourceUrl={sourceUrl}
+            fonte={fonte}
+            titulo={title}
+            anuncianteNome={anuncianteNome}
+            anuncianteTelefone={anuncianteTelefone}
             viewClassName={cn(styles.viewBtn, isFavorites && styles.viewBtnFavorites)}
             badgeClassName={cn(styles.statusBtn, isFavorites && styles.statusBtnFavorites)}
           />

@@ -82,12 +82,24 @@
   @apply mt-2 text-sm leading-relaxed text-white/60;
 }
 
+.contatoBox {
+  @apply mt-6 rounded-xl border border-white/10 bg-white/[0.04] p-4;
+}
+
+.contatoNome {
+  @apply mt-2 text-sm font-semibold text-white;
+}
+
+.contatoTelefone {
+  @apply mt-0.5 text-sm text-white/60;
+}
+
 .actions {
   @apply mt-6 flex gap-3;
 }
 
 .btnContact {
-  @apply flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#F5A623] py-3 text-sm font-semibold text-[#0D1B4B] transition-opacity hover:opacity-90;
+  @apply flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#F5A623] py-3 text-sm font-semibold text-[#0D1B4B] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40;
 }
 
 .btnView {
