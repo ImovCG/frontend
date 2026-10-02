@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Bath, Bed, Heart, Maximize2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { PLACEHOLDER_IMAGE } from '@/lib/imovelMapper'
+import CompletenessIndicator from '@/components/home/CompletenessIndicator'
 import { useFavorites } from '@/context/FavoritesContext'
 import PropertyActions from '@/components/home/PropertyActions'
 import styles from '@/styles/home/PropertyCard.module.css'
@@ -12,9 +13,9 @@ export interface PropertyCardProps {
   title: string
   price: string
   location: string
-  beds: number
-  baths: number
-  area: number
+  beds?: number
+  baths?: number
+  area?: number
   lat?: number
   lng?: number
   neighborhoodId?: string
@@ -26,6 +27,9 @@ export interface PropertyCardProps {
   fonte?: string
   anuncianteNome?: string
   anuncianteTelefone?: string
+  completude?: number | null
+  statusCompletude?: import('@/types/imovel').StatusCompletude | null
+  camposFaltantes?: import('@/types/imovel').CampoCompletude[]
   onClick?: () => void
   variant?: 'default' | 'favorites'
 }
@@ -45,6 +49,9 @@ export default function PropertyCard({
   fonte,
   anuncianteNome,
   anuncianteTelefone,
+  completude,
+  statusCompletude,
+  camposFaltantes,
   onClick,
   variant = 'default',
 }: PropertyCardProps) {
@@ -76,15 +83,21 @@ export default function PropertyCard({
         <p className={cn(styles.price, isFavorites && styles.priceFavorites)}>{price}</p>
         <h3 className={cn(styles.title, isFavorites && styles.titleFavorites)}>{title}</h3>
         <p className={cn(styles.location, isFavorites && styles.locationFavorites)}>{location}</p>
+        <CompletenessIndicator
+          completude={completude}
+          statusCompletude={statusCompletude}
+          camposFaltantes={camposFaltantes}
+          compact
+        />
         {description && (
           <p className={cn(styles.description, isFavorites && styles.descriptionFavorites)}>
             {description}
           </p>
         )}
         <div className={cn(styles.specs, isFavorites && styles.specsFavorites)}>
-          <span className={styles.specItem}><Bed className={styles.specIcon} />{beds}</span>
-          <span className={styles.specItem}><Bath className={styles.specIcon} />{baths}</span>
-          <span className={styles.specItem}><Maximize2 className={styles.specIcon} />{area}m²</span>
+          {beds != null && <span className={styles.specItem}><Bed className={styles.specIcon} />{beds}</span>}
+          {baths != null && <span className={styles.specItem}><Bath className={styles.specIcon} />{baths}</span>}
+          {area != null && <span className={styles.specItem}><Maximize2 className={styles.specIcon} />{area}m²</span>}
         </div>
         <div className={styles.actions}>
           <PropertyActions

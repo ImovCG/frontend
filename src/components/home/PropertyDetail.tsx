@@ -4,6 +4,7 @@ import { useFavorites } from '@/context/FavoritesContext'
 import { ehAnuncioProprio, formatarTelefone, linkWhatsApp } from '@/lib/contato'
 import { FALLBACK_SOURCE_URL } from '@/lib/property'
 import { cn } from '@/lib/utils'
+import CompletenessIndicator from '@/components/home/CompletenessIndicator'
 import styles from '@/styles/home/PropertyDetail.module.css'
 
 interface PropertyDetailProps {
@@ -46,30 +47,30 @@ export default function PropertyDetail({ property, onClose }: PropertyDetailProp
           <div className={styles.specs}>
             <div className={styles.spec}>
               <Bed className={styles.specIcon} />
-              <span>{property.beds} quartos</span>
+              <span>{property.beds != null ? `${property.beds} ${property.beds === 1 ? 'quarto' : 'quartos'}` : 'Quartos não informados'}</span>
             </div>
             <div className={styles.spec}>
               <Bath className={styles.specIcon} />
-              <span>{property.baths} banheiros</span>
+              <span>{property.baths != null ? `${property.baths} ${property.baths === 1 ? 'banheiro' : 'banheiros'}` : 'Banheiros não informados'}</span>
             </div>
             <div className={styles.spec}>
               <Maximize2 className={styles.specIcon} />
-              <span>{property.area} m²</span>
+              <span>{property.area != null ? `${property.area} m²` : 'Área não informada'}</span>
             </div>
           </div>
 
           <div className={styles.descriptionSection}>
             <h3 className={styles.sectionLabel}>Sobre o imóvel</h3>
             <p className={styles.description}>
-              {property.description ?? (
-                <>
-                  Imóvel bem localizado em {property.location.split(',')[0]}, com excelente acabamento,
-                  áreas de lazer completas e fácil acesso às principais vias da cidade.
-                  Documentação regularizada e pronto para financiamento.
-                </>
-              )}
+              {property.description ?? 'Descrição não informada.'}
             </p>
           </div>
+
+          <CompletenessIndicator
+            completude={property.completude}
+            statusCompletude={property.statusCompletude}
+            camposFaltantes={property.camposFaltantes}
+          />
 
           {proprio && (
             <div className={styles.contatoBox}>

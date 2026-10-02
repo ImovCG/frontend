@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Bath, Bed, Heart, Maximize2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { type PropertyCardProps } from '@/components/home/PropertyCard'
+import CompletenessIndicator from '@/components/home/CompletenessIndicator'
 import PropertyActions from '@/components/home/PropertyActions'
 import { useFavorites } from '@/context/FavoritesContext'
 import styles from '@/styles/home/PropertyStrip.module.css'
@@ -62,13 +63,19 @@ export default function PropertyStrip({ properties, onCardClick, onHover }: Prop
           <div className={styles.body}>
             <p className={styles.title}>{prop.title}</p>
             <p className={styles.location}>{prop.location}</p>
+            <CompletenessIndicator
+              completude={prop.completude}
+              statusCompletude={prop.statusCompletude}
+              camposFaltantes={prop.camposFaltantes}
+              compact
+            />
             {prop.description && (
               <p className={styles.description}>{prop.description}</p>
             )}
             <div className={styles.specs}>
-              <span className={styles.spec}><Bed className={styles.specIcon} />{prop.beds}</span>
-              <span className={styles.spec}><Bath className={styles.specIcon} />{prop.baths}</span>
-              <span className={styles.spec}><Maximize2 className={styles.specIcon} />{prop.area}m²</span>
+              {prop.beds != null && <span className={styles.spec}><Bed className={styles.specIcon} />{prop.beds}</span>}
+              {prop.baths != null && <span className={styles.spec}><Bath className={styles.specIcon} />{prop.baths}</span>}
+              {prop.area != null && <span className={styles.spec}><Maximize2 className={styles.specIcon} />{prop.area}m²</span>}
             </div>
             <div className={styles.actions}>
               <PropertyActions

@@ -1,0 +1,48 @@
+@reference "../../index.css";
+
+.wrapper,
+.compact {
+  @apply text-xs;
+}
+
+.wrapper {
+  @apply mt-4 rounded-lg bg-white/5 p-3;
+}
+
+.compact {
+  @apply mt-3;
+}
+
+.heading {
+  @apply flex flex-wrap items-center gap-x-2 gap-y-1;
+}
+
+.label {
+  @apply font-medium text-card;
+}
+
+.heading strong {
+  @apply text-card;
+}
+
+.status {
+  @apply text-card/50;
+}
+
+.missing {
+  @apply mt-1.5 leading-relaxed text-card/50;
+}
+
+.dark.wrapper {
+  @apply bg-black/5;
+}
+
+.dark .label,
+.dark .heading strong {
+  @apply text-black;
+}
+
+.dark .status,
+.dark .missing {
+  @apply text-black/60;
+}

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import ContatoCard from '@/components/anunciante/ContatoCard'
 import { useAuth } from '@/context/AuthContext'
 import { PLACEHOLDER_IMAGE } from '@/lib/imovelMapper'
+import CompletenessIndicator from '@/components/home/CompletenessIndicator'
 import { excluirAnuncio, listarMeusAnuncios } from '@/services/anuncios'
 import type { ImovelGetDTO } from '@/types/imovel'
 import styles from '@/styles/anunciante/MeusAnuncios.module.css'
@@ -183,6 +184,13 @@ export default function MeusAnuncios() {
                   <p className={styles.local}>
                     {[anuncio.bairro, anuncio.cidade].filter(Boolean).join(', ')}
                   </p>
+
+                  <CompletenessIndicator
+                    completude={anuncio.completude}
+                    statusCompletude={anuncio.statusCompletude}
+                    camposFaltantes={anuncio.camposFaltantes}
+                    variant="dark"
+                  />
 
                   <div className={styles.specs}>
                     {anuncio.quartos != null && (
