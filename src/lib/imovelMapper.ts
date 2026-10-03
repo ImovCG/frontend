@@ -38,9 +38,9 @@ export async function mapImovelToProperty(imovel: ImovelGetDTO): Promise<Propert
     title: imovel.titulo,
     price: formatPrice(imovel.preco),
     location: buildLocation(imovel),
-    beds: imovel.quartos ?? 0,
-    baths: imovel.banheiros ?? 0,
-    area: imovel.areaM2 ?? 0,
+    beds: imovel.quartos ?? undefined,
+    baths: imovel.banheiros ?? undefined,
+    area: imovel.areaM2 ?? undefined,
     lat,
     lng,
     neighborhoodId: imovel.bairro ? slugify(imovel.bairro) : undefined,
@@ -51,5 +51,8 @@ export async function mapImovelToProperty(imovel: ImovelGetDTO): Promise<Propert
     fonte: imovel.fonte,
     anuncianteNome: imovel.anuncianteNome ?? undefined,
     anuncianteTelefone: imovel.anuncianteTelefone ?? undefined,
+    completude: imovel.completude,
+    statusCompletude: imovel.statusCompletude,
+    camposFaltantes: imovel.camposFaltantes ?? [],
   }
 }

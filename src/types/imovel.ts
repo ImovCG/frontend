@@ -26,7 +26,32 @@ export interface ImovelGetDTO {
   anuncianteTelefone: string | null
   createdAt: string
   updatedAt: string
+  completude: number | null
+  statusCompletude: StatusCompletude | null
+  camposFaltantes: CampoCompletude[]
 }
+
+export type StatusCompletude =
+  | 'INCOMPLETO'
+  | 'PARCIALMENTE_COMPLETO'
+  | 'COMPLETO'
+
+export type CampoCompletude =
+  | 'titulo'
+  | 'preco'
+  | 'tipoAnuncio'
+  | 'categoria'
+  | 'endereco'
+  | 'bairro'
+  | 'cidade'
+  | 'estado'
+  | 'quartos'
+  | 'banheiros'
+  | 'areaM2'
+  | 'vagas'
+  | 'descricao'
+  | 'fotos'
+  | (string & {})
 
 export interface PageResponse<T> {
   content: T[]
