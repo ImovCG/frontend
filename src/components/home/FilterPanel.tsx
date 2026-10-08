@@ -146,8 +146,8 @@ export default function FilterPanel({ filters, onChange, onClose, onClear }: Fil
                   <Slider.Thumb className={styles.sliderThumb} aria-label="Raio de distância" />
                 </Slider.Root>
                 <p className={styles.hint}>
-                  Distância medida até o centro do bairro do imóvel — os anúncios não trazem
-                  endereço exato, então a precisão é por bairro.
+                  Distância em linha reta até o imóvel. Quando o anúncio não traz coordenadas,
+                  é medida até o centro do bairro (exibida com ~).
                 </p>
               </>
             )}

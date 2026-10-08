@@ -41,6 +41,7 @@ export default function Home() {
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
 
   const activeChipData = chips.find((c) => c.id === activeChip)
+  const activeCampus = getCampus(filters.campusId)
 
   const apiFilters = useMemo<ImoveisFiltros>(() => {
     const next: ImoveisFiltros = { cidade: 'Campina Grande' }
@@ -72,24 +73,31 @@ export default function Home() {
     if (filters.fonte) {
       next.fonte = filters.fonte
     }
+    if (activeCampus) {
+      next.universidade = activeCampus.sigla
+    }
 
     return next
-  }, [activeChipData, filters])
+  }, [activeChipData, filters, activeCampus])
 
   const { properties: allProperties, loading, error, refetch } = useImoveis(apiFilters)
 
-  const activeCampus = getCampus(filters.campusId)
-
-  // Filtro de distância: aplicado no cliente, porque os imóveis não têm coordenada
-  // própria — a posição usada é o centro do bairro (ver lib/neighborhoodCoords).
+  // Filtro de distância: usa a distância calculada pela API (coordenada do imóvel) e,
+  // quando o anúncio não tem coordenada, o centro do bairro (ver lib/neighborhoodCoords).
   const properties = useMemo(() => {
     if (!activeCampus) return allProperties
-    return allProperties.filter(
-      (p) =>
-        p.lat !== undefined &&
-        p.lng !== undefined &&
-        haversineKm(activeCampus, { lat: p.lat, lng: p.lng }) <= filters.radiusKm,
-    )
+
+    const withDistance: PropertyCardProps[] = []
+    for (const p of allProperties) {
+      if (p.lat === undefined || p.lng === undefined) continue
+
+      const aproximada = p.distanciaUniversidadeKm === undefined
+      const km = p.distanciaUniversidadeKm ?? haversineKm(activeCampus, { lat: p.lat, lng: p.lng })
+      if (km > filters.radiusKm) continue
+
+      withDistance.push({ ...p, distanciaUniversidade: { km, sigla: activeCampus.sigla, aproximada } })
+    }
+    return withDistance
   }, [allProperties, activeCampus, filters.radiusKm])
 
   const displayChips: FilterChip[] = [

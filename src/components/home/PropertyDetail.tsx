@@ -3,6 +3,7 @@ import { type PropertyCardProps } from '@/components/home/PropertyCard'
 import { useFavorites } from '@/context/FavoritesContext'
 import { ehAnuncioProprio, formatarTelefone, linkWhatsApp } from '@/lib/contato'
 import { FALLBACK_SOURCE_URL } from '@/lib/property'
+import { formatDistanceLabel } from '@/lib/campuses'
 import { cn } from '@/lib/utils'
 import CompletenessIndicator from '@/components/home/CompletenessIndicator'
 import styles from '@/styles/home/PropertyDetail.module.css'
@@ -43,6 +44,13 @@ export default function PropertyDetail({ property, onClose }: PropertyDetailProp
             <MapPin className={styles.locationIcon} />
             {property.location}
           </div>
+
+          {property.distanciaUniversidade && (
+            <div className={styles.distance}>
+              <MapPin className={styles.locationIcon} />
+              {formatDistanceLabel(property.distanciaUniversidade)}
+            </div>
+          )}
 
           <div className={styles.specs}>
             <div className={styles.spec}>

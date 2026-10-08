@@ -53,6 +53,14 @@
   @apply mt-0.5 line-clamp-1 text-[10px] text-white/50;
 }
 
+.distance {
+  @apply mt-1 flex items-center gap-1 text-[10px] font-medium text-[#F5A623];
+}
+
+.distanceIcon {
+  @apply h-3 w-3 shrink-0;
+}
+
 .description {
   @apply mt-1 line-clamp-2 text-[10px] text-white/40;
 }

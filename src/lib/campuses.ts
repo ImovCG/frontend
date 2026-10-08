@@ -70,3 +70,19 @@ export function haversineKm(a: Point, b: Point): number {
 export function formatRadius(km: number): string {
   return km < 1 ? `${Math.round(km * 1000)} m` : `${km.toLocaleString('pt-BR')} km`
 }
+
+/** Distância de um imóvel até o campus selecionado*/
+export interface PropertyDistance {
+  km: number
+  sigla: string
+  /** true quando não há coordenada do imóvel e a distância foi medida até o centro do bairro. */
+  aproximada: boolean
+}
+
+export function formatDistance(km: number): string {
+  return `${km.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} km`
+}
+
+export function formatDistanceLabel({ km, sigla, aproximada }: PropertyDistance): string {
+  return `${aproximada ? '~' : ''}${formatDistance(km)} da ${sigla}`
+}
