@@ -73,7 +73,6 @@ export default function Home() {
     if (filters.fonte) {
       next.fonte = filters.fonte
     }
-    // A API devolve distanciaUniversidadeKm para a universidade informada.
     if (activeCampus) {
       next.universidade = activeCampus.sigla
     }

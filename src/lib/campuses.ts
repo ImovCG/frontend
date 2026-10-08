@@ -71,7 +71,7 @@ export function formatRadius(km: number): string {
   return km < 1 ? `${Math.round(km * 1000)} m` : `${km.toLocaleString('pt-BR')} km`
 }
 
-/** Distância de um imóvel até o campus selecionado, pronta para exibição. */
+/** Distância de um imóvel até o campus selecionado*/
 export interface PropertyDistance {
   km: number
   sigla: string
@@ -83,7 +83,6 @@ export function formatDistance(km: number): string {
   return `${km.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} km`
 }
 
-/** Texto curto exibido nos cards e no detalhe do imóvel. */
 export function formatDistanceLabel({ km, sigla, aproximada }: PropertyDistance): string {
   return `${aproximada ? '~' : ''}${formatDistance(km)} da ${sigla}`
 }
