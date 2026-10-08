@@ -51,4 +51,14 @@ describe('mapImovelToProperty', () => {
     expect(property.area).toBeUndefined()
     expect(property.baths).toBe(1)
   })
+
+  it('exposes the distance to the selected university when the API provides it', async () => {
+    const property = await mapImovelToProperty({ ...baseImovel, distanciaUniversidadeKm: 1.37 })
+    expect(property.distanciaUniversidadeKm).toBe(1.37)
+  })
+
+  it('leaves the distance undefined when the API returns null', async () => {
+    const property = await mapImovelToProperty({ ...baseImovel, distanciaUniversidadeKm: null })
+    expect(property.distanciaUniversidadeKm).toBeUndefined()
+  })
 })

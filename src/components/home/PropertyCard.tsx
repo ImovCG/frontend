@@ -5,6 +5,7 @@ import { PLACEHOLDER_IMAGE } from '@/lib/imovelMapper'
 import CompletenessIndicator from '@/components/home/CompletenessIndicator'
 import { useFavorites } from '@/context/FavoritesContext'
 import PropertyActions from '@/components/home/PropertyActions'
+import type { PropertyDistance } from '@/lib/campuses'
 import styles from '@/styles/home/PropertyCard.module.css'
 
 export interface PropertyCardProps {
@@ -30,6 +31,10 @@ export interface PropertyCardProps {
   completude?: number | null
   statusCompletude?: import('@/types/imovel').StatusCompletude | null
   camposFaltantes?: import('@/types/imovel').CampoCompletude[]
+  /** Distância informada pela API até a universidade selecionada na busca. */
+  distanciaUniversidadeKm?: number
+  /** Distância exibida na busca por universidade (da API ou estimada pelo bairro). */
+  distanciaUniversidade?: PropertyDistance
   onClick?: () => void
   variant?: 'default' | 'favorites'
 }

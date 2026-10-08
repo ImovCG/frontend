@@ -51,6 +51,7 @@ export async function mapImovelToProperty(imovel: ImovelGetDTO): Promise<Propert
     fonte: imovel.fonte,
     anuncianteNome: imovel.anuncianteNome ?? undefined,
     anuncianteTelefone: imovel.anuncianteTelefone ?? undefined,
+    distanciaUniversidadeKm: imovel.distanciaUniversidadeKm ?? undefined,
     completude: imovel.completude,
     statusCompletude: imovel.statusCompletude,
     camposFaltantes: imovel.camposFaltantes ?? [],

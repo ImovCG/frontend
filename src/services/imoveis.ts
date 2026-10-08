@@ -17,6 +17,8 @@ function buildQuery(filtros: ImoveisFiltros): string {
   if (filtros.size != null) params.set('size', String(filtros.size))
   if (filtros.sort) params.set('sort', filtros.sort)
   if (filtros.fonte) params.set('fonte', filtros.fonte)
+  if (filtros.universidade) params.set('universidade', filtros.universidade)
+  if (filtros.distanciaMaximaKm != null) params.set('distanciaMaximaKm', String(filtros.distanciaMaximaKm))
 
 
   const query = params.toString()

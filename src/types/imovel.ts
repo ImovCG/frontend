@@ -13,6 +13,8 @@ export interface ImovelGetDTO {
   bairro: string | null
   latitude: number | null
   longitude: number | null
+  /** Distância em linha reta até a universidade informada na busca (null sem coordenadas ou sem universidade). */
+  distanciaUniversidadeKm?: number | null
   quartos: number | null
   banheiros: number | null
   areaM2: number | null
@@ -78,4 +80,7 @@ export interface ImoveisFiltros {
   size?: number
   sort?: string
   fonte?: string
+  /** Sigla da universidade de referência: UFCG, UEPB ou IFPB. */
+  universidade?: string
+  distanciaMaximaKm?: number
 }

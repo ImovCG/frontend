@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react'
-import { Bath, Bed, Heart, Maximize2 } from 'lucide-react'
+import { Bath, Bed, Heart, Maximize2, MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { type PropertyCardProps } from '@/components/home/PropertyCard'
 import CompletenessIndicator from '@/components/home/CompletenessIndicator'
 import PropertyActions from '@/components/home/PropertyActions'
 import { useFavorites } from '@/context/FavoritesContext'
+import { formatDistanceLabel } from '@/lib/campuses'
 import styles from '@/styles/home/PropertyStrip.module.css'
 
 interface PropertyStripProps {
@@ -63,6 +64,12 @@ export default function PropertyStrip({ properties, onCardClick, onHover }: Prop
           <div className={styles.body}>
             <p className={styles.title}>{prop.title}</p>
             <p className={styles.location}>{prop.location}</p>
+            {prop.distanciaUniversidade && (
+              <p className={styles.distance}>
+                <MapPin className={styles.distanceIcon} />
+                {formatDistanceLabel(prop.distanciaUniversidade)}
+              </p>
+            )}
             <CompletenessIndicator
               completude={prop.completude}
               statusCompletude={prop.statusCompletude}
